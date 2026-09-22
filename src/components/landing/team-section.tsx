@@ -27,6 +27,7 @@ const fourthBarber: Barber = {
 };
 
 const teamMembers: Barber[] = [...barbers.filter((barber) => barber.active).slice(0, 3), fourthBarber];
+const AUTOPLAY_DELAY = 2000;
 
 function resolveMedia(id?: string): MediaAsset {
   return (
@@ -103,6 +104,14 @@ export function TeamSection() {
       setActiveIndex(closestIndex);
     });
   }, []);
+
+  useEffect(() => {
+    const autoplayTimer = window.setTimeout(() => {
+      focusCard(activeIndex + 1);
+    }, AUTOPLAY_DELAY);
+
+    return () => window.clearTimeout(autoplayTimer);
+  }, [activeIndex, focusCard]);
 
   useEffect(() => {
     return () => {
