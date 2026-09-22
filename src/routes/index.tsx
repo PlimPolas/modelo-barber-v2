@@ -5,31 +5,19 @@ import { LandingPage } from "@/components/landing/landing-page";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      {
-        title: "Ateliê 47 — Barbearia autoral em São Paulo",
-      },
+      { title: "Atelier Barbers — Premium Barbershop" },
       {
         name: "description",
         content:
-          "Cortes, barba e cuidado com técnica, presença e atenção aos detalhes. Agende seu horário no Ateliê 47.",
+          "Walk in. Look great. Atelier Barbers offers precision cuts, classic shaves, and grooming services for the modern gentleman.",
       },
-      {
-        property: "og:title",
-        content: "Ateliê 47 — Barbearia autoral em São Paulo",
-      },
+      { property: "og:title", content: "Atelier Barbers — Premium Barbershop" },
       {
         property: "og:description",
-        content:
-          "Cortes precisos, barba bem cuidada e uma experiência desenhada para você desacelerar.",
+        content: "Precision cuts, classic shaves and grooming in Melbourne CBD.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Ateliê 47 — Barbearia autoral em São Paulo" },
-      {
-        name: "twitter:description",
-        content:
-          "Cortes precisos, barba bem cuidada e uma experiência desenhada para você desacelerar.",
-      },
     ],
   }),
   component: IndexPage,
