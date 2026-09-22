@@ -76,17 +76,6 @@
   transform: translate3d(0, -2px, 0);
 }
 
-.service-card {
-  transition-property: transform, border-color;
-  transition-duration: 260ms;
-  transition-timing-function: var(--motion-ease-premium);
-}
-
-.service-card[data-visible='true']:hover {
-  transform: translate3d(0, -3px, 0);
-  border-color: rgba(245, 240, 232, .18);
-}
-
 .service-link svg,
 .header-call svg,
 .gold-button svg {
@@ -97,14 +86,6 @@
 .header-call:hover svg,
 .gold-button:hover svg {
   transform: translate3d(3px, 0, 0);
-}
-
-.review-card {
-  transition: border-color 240ms var(--motion-ease-premium), background 240ms var(--motion-ease-premium);
-}
-
-.review-card:hover {
-  border-color: rgba(245, 240, 232, .17);
 }
 
 @keyframes hero-element-in {
@@ -170,7 +151,6 @@
   .hero-motion[data-hero-step='5'] { animation-delay: 355ms; }
   .hero-motion[data-hero-step='6'] { animation-delay: 410ms; }
 
-  .service-card[data-visible='true']:hover,
   .gold-button:hover,
   .ghost-button:hover {
     transform: none;
@@ -198,8 +178,6 @@
     transition: none !important;
   }
 
-  .service-card,
-  .service-card[data-visible='true']:hover,
   .gold-button,
   .ghost-button,
   .service-link svg,
