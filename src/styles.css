@@ -1311,6 +1311,217 @@ img {
   }
 }
 
+/* Services compact responsive composition — keep 01 | 02 | 03 | 04 */
+@media (max-width: 1040px) and (min-width: 810px) {
+  .services-section {
+    padding-block: clamp(68px, 7vw, 88px);
+  }
+
+  .services-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(8px, 1.2vw, 14px);
+    margin-top: 44px;
+  }
+
+  .service-card {
+    min-height: 320px;
+    aspect-ratio: .68;
+  }
+
+  .service-number {
+    top: 16px;
+    left: 16px;
+    font-size: 34px;
+  }
+
+  .service-copy {
+    left: 16px;
+    right: 16px;
+    bottom: 17px;
+  }
+
+  .service-copy h3 {
+    font-size: clamp(17px, 2.1vw, 22px);
+  }
+
+  .service-copy p {
+    min-height: 0;
+    font-size: 11px;
+    line-height: 1.45;
+  }
+
+  .service-link {
+    margin-top: 12px;
+  }
+}
+
+@media (max-width: 809px) {
+  .services-section {
+    padding-block: clamp(38px, 5.5svh, 52px);
+    max-height: none;
+  }
+
+  .services-section .section-shell {
+    width: min(calc(100% - 20px), var(--shell));
+  }
+
+  .services-section .section-heading {
+    max-width: 100%;
+  }
+
+  .services-section .atelier-eyebrow {
+    gap: 9px;
+  }
+
+  .services-section .atelier-eyebrow > span {
+    flex-basis: 24px;
+    width: 24px;
+  }
+
+  .services-section .atelier-eyebrow p {
+    font-size: 10px;
+    letter-spacing: .14em;
+  }
+
+  .services-section .section-heading h2 {
+    margin-top: 14px;
+    font-size: clamp(30px, 8.8vw, 38px);
+    line-height: 1;
+  }
+
+  .services-section .section-heading > p {
+    max-width: 310px;
+    margin-top: 11px;
+    font-size: 12px;
+    line-height: 1.45;
+  }
+
+  .services-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 4px;
+    margin-top: clamp(24px, 3.8svh, 32px);
+  }
+
+  .service-card {
+    min-width: 0;
+    min-height: 0;
+    height: clamp(300px, 43svh, 360px);
+    aspect-ratio: auto;
+    border-color: rgba(245,240,232,.11);
+  }
+
+  .service-card img {
+    object-fit: cover;
+    transform: scale(1.01);
+  }
+
+  .service-card:nth-child(1) img {
+    object-position: 50% center;
+  }
+
+  .service-card:nth-child(2) img {
+    object-position: 55% center;
+  }
+
+  .service-card:nth-child(3) img {
+    object-position: 58% center;
+  }
+
+  .service-card:nth-child(4) img {
+    object-position: 50% center;
+  }
+
+  .service-shade {
+    background:
+      linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,.04) 36%, rgba(0,0,0,.86) 100%),
+      linear-gradient(90deg, rgba(0,0,0,.18), transparent 52%);
+  }
+
+  .service-number {
+    top: 9px;
+    left: 7px;
+    font-size: clamp(23px, 7vw, 29px);
+    letter-spacing: .02em;
+  }
+
+  .service-copy {
+    left: 7px;
+    right: 7px;
+    bottom: 10px;
+  }
+
+  .service-copy h3 {
+    font-size: clamp(12px, 3.4vw, 15px);
+    line-height: 1.05;
+    overflow-wrap: anywhere;
+  }
+
+  .service-copy p {
+    display: none;
+  }
+
+  .service-link {
+    min-height: 22px;
+    margin-top: 8px;
+    gap: 0;
+    font-size: 0;
+  }
+
+  .service-link svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  .service-card:active,
+  .service-card:focus-visible {
+    border-color: rgba(201,168,76,.72);
+    outline: none;
+  }
+
+  .service-card:active img,
+  .service-card:focus-visible img {
+    filter: saturate(.9) contrast(1.03) brightness(.82);
+  }
+}
+
+@media (max-width: 360px) {
+  .services-section {
+    padding-block: 34px;
+  }
+
+  .services-section .section-shell {
+    width: calc(100% - 14px);
+  }
+
+  .services-section .section-heading > p {
+    font-size: 11px;
+  }
+
+  .services-grid {
+    gap: 3px;
+    margin-top: 22px;
+  }
+
+  .service-card {
+    height: clamp(280px, 42svh, 330px);
+  }
+
+  .service-number {
+    left: 6px;
+    font-size: 22px;
+  }
+
+  .service-copy {
+    left: 6px;
+    right: 5px;
+    bottom: 8px;
+  }
+
+  .service-copy h3 {
+    font-size: 11px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
