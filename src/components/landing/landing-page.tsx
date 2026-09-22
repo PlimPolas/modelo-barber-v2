@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react';
 import { ArrowRight, Check, MapPin, Menu, Phone, X } from 'lucide-react';
 
+import { PricingSection } from './pricing-section';
+
 const image = (name: string, params = 'scale-down-to=2048') =>
   `https://framerusercontent.com/images/${name}.jpg?${params}`;
 
@@ -346,6 +348,7 @@ export function LandingPage() {
 
       <Metrics />
       <Services />
+      <PricingSection />
       <Experience />
       <Reviews />
       <Location />
