@@ -41,6 +41,16 @@ export function TeamSection() {
   const viewportRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<Array<HTMLDivElement | null>>([]);
   const scrollFrame = useRef<number | null>(null);
+  const programmaticTarget = useRef<number | null>(null);
+  const programmaticTimer = useRef<number | null>(null);
+
+  const clearProgrammaticScroll = useCallback(() => {
+    programmaticTarget.current = null;
+    if (programmaticTimer.current !== null) {
+      window.clearTimeout(programmaticTimer.current);
+      programmaticTimer.current = null;
+    }
+  }, []);
 
   const focusCard = useCallback((index: number, behavior: ScrollBehavior = 'smooth') => {
     const normalizedIndex = (index + teamMembers.length) % teamMembers.length;
@@ -52,13 +62,24 @@ export function TeamSection() {
 
     if (viewport.scrollWidth <= viewport.clientWidth + 4) return;
 
+    programmaticTarget.current = normalizedIndex;
+    if (programmaticTimer.current !== null) {
+      window.clearTimeout(programmaticTimer.current);
+    }
+
     const left = card.offsetLeft - (viewport.clientWidth - card.offsetWidth) / 2;
     viewport.scrollTo({ left: Math.max(0, left), behavior });
+
+    programmaticTimer.current = window.setTimeout(() => {
+      programmaticTarget.current = null;
+      programmaticTimer.current = null;
+    }, behavior === 'smooth' ? 620 : 0);
   }, []);
 
   const handleScroll = useCallback(() => {
     const viewport = viewportRef.current;
     if (!viewport || viewport.scrollWidth <= viewport.clientWidth + 4) return;
+    if (programmaticTarget.current !== null) return;
 
     if (scrollFrame.current !== null) {
       window.cancelAnimationFrame(scrollFrame.current);
@@ -88,11 +109,14 @@ export function TeamSection() {
       if (scrollFrame.current !== null) {
         window.cancelAnimationFrame(scrollFrame.current);
       }
+      if (programmaticTimer.current !== null) {
+        window.clearTimeout(programmaticTimer.current);
+      }
     };
   }, []);
 
   return (
-    <section id="equipe" className="atelier-section team-carousel-section" aria-labelledby="team-title">
+    <section id="equipe" className="atelier-section team-carousel-section" aria-label="Nosso time">
       <div className="section-shell">
         <div className="team-carousel-header">
           <div data-reveal="fade-up" data-reveal-delay={0}>
@@ -127,6 +151,7 @@ export function TeamSection() {
           ref={viewportRef}
           className="team-carousel-viewport"
           onScroll={handleScroll}
+          onPointerDown={clearProgrammaticScroll}
           aria-roledescription="carousel"
           aria-label="Equipe de barbeiros"
         >
