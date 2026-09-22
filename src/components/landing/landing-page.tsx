@@ -67,7 +67,7 @@ function useReveal() {
     const staggerStep = isMobile ? 70 : 100;
     const maxDelay = isMobile ? 280 : 500;
     nodes.forEach((node) => {
-      const step = Number(node.dataset.revealDelay ?? 0);
+      const step = Number(node.dataset['revealDelay'] ?? 0);
       node.style.setProperty('--reveal-delay', `${Math.min(Math.max(step, 0) * staggerStep, maxDelay)}ms`);
     });
     if (!('IntersectionObserver' in window)) {

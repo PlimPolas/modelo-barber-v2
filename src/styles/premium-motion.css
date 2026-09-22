@@ -163,11 +163,11 @@
 @keyframes hero-image-premium-in {
   from {
     opacity: .55;
-    transform: scale(1.055);
+    transform: scale(1.04);
   }
   to {
     opacity: 1;
-    transform: scale(1.025);
+    transform: scale(1.02);
   }
 }
 
@@ -262,6 +262,10 @@
 
   .hero-image {
     animation-duration: 560ms !important;
+  }
+
+  .hero-marquee-track {
+    animation-duration: 60s !important;
   }
 
   .atelier-header {
