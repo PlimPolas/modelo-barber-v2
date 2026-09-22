@@ -9,10 +9,12 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
+import { BrandPreloader } from "../components/layout/brand-preloader";
 import { LanguageProvider } from "../i18n";
 import appCss from "../styles.css?url";
 import barberV1Css from "../styles/barber-v1-typography-pricing.css?url";
 import premiumMotionCss from "../styles/premium-motion.css?url";
+import preloaderCss from "../styles/brand-preloader-v2.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
@@ -79,6 +81,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "stylesheet", href: appCss },
       { rel: "stylesheet", href: barberV1Css },
       { rel: "stylesheet", href: premiumMotionCss },
+      { rel: "stylesheet", href: preloaderCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       {
         rel: "preconnect",
@@ -103,7 +106,7 @@ function RootShell({ children }: { children: ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body className="preloader-pending">
         {children}
         <Scripts />
       </body>
@@ -116,6 +119,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
+        <BrandPreloader />
         <Outlet />
       </LanguageProvider>
     </QueryClientProvider>
