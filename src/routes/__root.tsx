@@ -9,29 +9,17 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
-import { BrandPreloader } from "../components/layout/brand-preloader";
-import { SmoothScroll } from "../components/layout/smooth-scroll";
-import { LanguageProvider } from "../i18n";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
-        </p>
-        <div className="mt-6">
-          <Link
-            to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Go home
-          </Link>
-        </div>
+    <div className="error-screen">
+      <div className="error-card">
+        <p className="eyebrow">Atelier Barbers</p>
+        <h1>404</h1>
+        <p>The page you are looking for does not exist.</p>
+        <Link to="/" className="gold-button">Back home</Link>
       </div>
     </div>
   );
@@ -40,36 +28,25 @@ function NotFoundComponent() {
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
+
   useEffect(() => {
     reportLovableError(error, { boundary: "tanstack_root_error_component" });
   }, [error]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
-        </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong on our end. You can try refreshing or head back home.
-        </p>
-        <div className="mt-6 flex flex-wrap justify-center gap-2">
-          <button
-            onClick={() => {
-              router.invalidate();
-              reset();
-            }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Try again
-          </button>
-          <a
-            href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
-          >
-            Go home
-          </a>
-        </div>
+    <div className="error-screen">
+      <div className="error-card">
+        <p className="eyebrow">Atelier Barbers</p>
+        <h1>Something went wrong.</h1>
+        <button
+          className="gold-button"
+          onClick={() => {
+            router.invalidate();
+            reset();
+          }}
+        >
+          Try again
+        </button>
       </div>
     </div>
   );
@@ -80,32 +57,23 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Ateliê 47 — Barbearia autoral em São Paulo" },
+      { title: "Atelier Barbers — Premium Barbershop" },
       {
         name: "description",
         content:
-          "Cortes, barba e cuidado com técnica, presença e atenção aos detalhes.",
+          "Walk in. Look great. Precision cuts, classic shaves and grooming for the modern gentleman.",
       },
-      { name: "author", content: "Ateliê 47" },
-      {
-        property: "og:title",
-        content: "Ateliê 47 — Barbearia autoral em São Paulo",
-      },
+      { name: "author", content: "Atelier Barbers" },
+      { property: "og:title", content: "Atelier Barbers — Premium Barbershop" },
       {
         property: "og:description",
-        content:
-          "Cortes, barba e cuidado com técnica, presença e atenção aos detalhes.",
+        content: "Precision cuts, classic shaves and grooming in Melbourne CBD.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
-      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+      { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       {
         rel: "preconnect",
@@ -114,7 +82,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Manrope:wght@400;500;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&display=swap",
       },
     ],
   }),
@@ -126,7 +94,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="pt-BR">
+    <html lang="en">
       <head>
         <HeadContent />
       </head>
@@ -140,15 +108,9 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-
   return (
     <QueryClientProvider client={queryClient}>
-      <LanguageProvider>
-        <BrandPreloader />
-        <SmoothScroll />
-        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-        <Outlet />
-      </LanguageProvider>
+      <Outlet />
     </QueryClientProvider>
   );
 }
