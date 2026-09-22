@@ -11,9 +11,16 @@ interface BarberCardProps {
   media: MediaAsset;
   actionPrefix: string;
   specialtiesLabel: string;
+  actionHref?: string;
 }
 
-export function BarberCard({ barber, media, actionPrefix, specialtiesLabel }: BarberCardProps) {
+export function BarberCard({
+  barber,
+  media,
+  actionPrefix,
+  specialtiesLabel,
+  actionHref,
+}: BarberCardProps) {
   return (
     <article className="group min-w-0">
       <div className="overflow-hidden bg-[var(--surface)]">
@@ -39,7 +46,7 @@ export function BarberCard({ barber, media, actionPrefix, specialtiesLabel }: Ba
             <p className="type-eyebrow mt-[var(--space-2)] text-[var(--brand-accent)]">{barber.role}</p>
           </div>
           <Link
-            href={`/booking?barber=${barber.slug}`}
+            href={actionHref ?? `/booking?barber=${barber.slug}`}
             aria-label={`${actionPrefix} ${barber.name}`}
             className="grid size-11 shrink-0 place-items-center border border-[var(--border-subtle)] text-[var(--text-secondary)] transition-colors hover:border-[var(--brand-accent)] hover:text-[var(--brand-accent)]"
           >

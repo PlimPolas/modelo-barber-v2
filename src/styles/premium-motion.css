@@ -1,25 +1,31 @@
 :root {
   --motion-ease-premium: cubic-bezier(.22, 1, .36, 1);
-  --motion-duration: 880ms;
+  --motion-duration: 840ms;
 }
 
-/* Scroll reveals: perceptible, but still restrained. */
+/*
+ * Motion runtime for Barber V2.
+ * This layer intentionally loads after styles.css so it owns the reveal state.
+ * The base stylesheet contains a global reduced-motion reset with !important;
+ * durations here are also explicit/important so the project never collapses
+ * every animation to 0.01ms just because the OS reports reduced motion.
+ */
 [data-reveal] {
   opacity: 0;
-  transform: translate3d(0, 34px, 0);
+  transform: translate3d(0, 40px, 0);
   transition-property: opacity, transform;
-  transition-duration: var(--motion-duration);
+  transition-duration: var(--motion-duration) !important;
   transition-timing-function: var(--motion-ease-premium);
   transition-delay: var(--reveal-delay, 0ms);
   will-change: opacity, transform;
 }
 
 [data-reveal='media'] {
-  transform: translate3d(0, 28px, 0) scale(.975);
+  transform: translate3d(0, 32px, 0) scale(.96);
 }
 
 [data-reveal='card'] {
-  transform: translate3d(0, 36px, 0);
+  transform: translate3d(0, 40px, 0) scale(.96);
 }
 
 [data-reveal][data-visible='true'] {
@@ -28,56 +34,56 @@
   will-change: auto;
 }
 
-/* Hero: clearly sequenced editorial entrance. */
+/* Hero: deterministic keyframe sequence, independent from IntersectionObserver. */
 .hero-copy {
   animation: none !important;
 }
 
 .hero-motion {
   opacity: 0;
-  transform: translate3d(0, 30px, 0);
-  animation: hero-element-in 880ms var(--motion-ease-premium) forwards;
+  transform: translate3d(0, 34px, 0);
+  animation: hero-element-in 820ms var(--motion-ease-premium) forwards !important;
   will-change: opacity, transform;
 }
 
-.hero-motion[data-hero-step='0'] { animation-delay: 130ms; }
-.hero-motion[data-hero-step='1'] { animation-delay: 260ms; }
-.hero-motion[data-hero-step='2'] { animation-delay: 390ms; }
-.hero-motion[data-hero-step='3'] { animation-delay: 500ms; }
-.hero-motion[data-hero-step='4'] { animation-delay: 610ms; }
-.hero-motion[data-hero-step='5'] { animation-delay: 720ms; }
-.hero-motion[data-hero-step='6'] { animation-delay: 830ms; }
+.hero-motion[data-hero-step='0'] { animation-delay: 120ms !important; }
+.hero-motion[data-hero-step='1'] { animation-delay: 240ms !important; }
+.hero-motion[data-hero-step='2'] { animation-delay: 360ms !important; }
+.hero-motion[data-hero-step='3'] { animation-delay: 480ms !important; }
+.hero-motion[data-hero-step='4'] { animation-delay: 600ms !important; }
+.hero-motion[data-hero-step='5'] { animation-delay: 720ms !important; }
+.hero-motion[data-hero-step='6'] { animation-delay: 840ms !important; }
 
 .hero-image {
-  animation: hero-image-premium-in 1.45s var(--motion-ease-premium) both !important;
+  animation: hero-image-premium-in 1.25s var(--motion-ease-premium) both !important;
   will-change: opacity, transform;
 }
 
 .atelier-header {
-  animation: header-premium-in 720ms var(--motion-ease-premium) both;
+  animation: header-premium-in 680ms var(--motion-ease-premium) both !important;
 }
 
-/* Pricing: row enters, then leader grows, then price settles in. */
+/* Pricing: row appears, then leader grows, then price settles in. */
 .pricing-row[data-reveal] .pricing-service-name,
 .pricing-row[data-reveal] .pricing-price {
-  transition: opacity 460ms var(--motion-ease-premium), transform 460ms var(--motion-ease-premium);
+  transition: opacity 500ms var(--motion-ease-premium), transform 500ms var(--motion-ease-premium) !important;
 }
 
 .pricing-row[data-reveal] .pricing-service-name {
   opacity: 0;
-  transform: translate3d(0, 8px, 0);
+  transform: translate3d(0, 10px, 0);
 }
 
 .pricing-row[data-reveal] .pricing-leader {
   transform: scaleX(0);
   transform-origin: left center;
-  transition: transform 620ms var(--motion-ease-premium) 110ms;
+  transition: transform 620ms var(--motion-ease-premium) 110ms !important;
 }
 
 .pricing-row[data-reveal] .pricing-price {
   opacity: 0;
-  transform: translate3d(-8px, 0, 0);
-  transition-delay: 210ms;
+  transform: translate3d(-10px, 0, 0);
+  transition-delay: 220ms !important;
 }
 
 .pricing-row[data-reveal][data-visible='true'] .pricing-service-name,
@@ -90,20 +96,20 @@
   transform: scaleX(1);
 }
 
-/* Images get a subtle independent settle-in when their container reveals. */
+/* Images settle separately while their parent reveals. */
 .service-card[data-reveal] img,
 .experience-media[data-reveal] img,
 .location-visual[data-reveal] img {
   transition-property: transform, filter, opacity;
-  transition-duration: 900ms, 500ms, 700ms;
+  transition-duration: 900ms, 500ms, 720ms;
   transition-timing-function: var(--motion-ease-premium);
 }
 
 .service-card[data-reveal]:not([data-visible='true']) img,
 .experience-media[data-reveal]:not([data-visible='true']) img,
 .location-visual[data-reveal]:not([data-visible='true']) img {
-  opacity: .72;
-  transform: scale(1.04);
+  opacity: .68;
+  transform: scale(1.045);
 }
 
 .service-card[data-reveal][data-visible='true'] img,
@@ -112,7 +118,7 @@
   opacity: 1;
 }
 
-/* Refined click/hover feedback. Existing visual treatment is preserved. */
+/* Microinteractions stay restrained and never modify layout. */
 .gold-button,
 .ghost-button,
 .header-call,
@@ -146,7 +152,7 @@
 @keyframes hero-element-in {
   from {
     opacity: 0;
-    transform: translate3d(0, 30px, 0);
+    transform: translate3d(0, 34px, 0);
   }
   to {
     opacity: 1;
@@ -156,7 +162,7 @@
 
 @keyframes hero-image-premium-in {
   from {
-    opacity: .58;
+    opacity: .55;
     transform: scale(1.055);
   }
   to {
@@ -178,36 +184,36 @@
 
 @media (max-width: 809px) {
   :root {
-    --motion-duration: 720ms;
+    --motion-duration: 700ms;
   }
 
   [data-reveal] {
-    transform: translate3d(0, 22px, 0);
+    transform: translate3d(0, 26px, 0);
   }
 
   [data-reveal='media'] {
-    transform: translate3d(0, 18px, 0) scale(.986);
+    transform: translate3d(0, 20px, 0) scale(.975);
   }
 
   [data-reveal='card'] {
-    transform: translate3d(0, 24px, 0);
+    transform: translate3d(0, 28px, 0) scale(.975);
   }
 
   .hero-motion {
-    transform: translate3d(0, 20px, 0);
-    animation-duration: 740ms;
+    transform: translate3d(0, 22px, 0);
+    animation-duration: 700ms !important;
   }
 
-  .hero-motion[data-hero-step='0'] { animation-delay: 90ms; }
-  .hero-motion[data-hero-step='1'] { animation-delay: 165ms; }
-  .hero-motion[data-hero-step='2'] { animation-delay: 240ms; }
-  .hero-motion[data-hero-step='3'] { animation-delay: 315ms; }
-  .hero-motion[data-hero-step='4'] { animation-delay: 390ms; }
-  .hero-motion[data-hero-step='5'] { animation-delay: 465ms; }
-  .hero-motion[data-hero-step='6'] { animation-delay: 540ms; }
+  .hero-motion[data-hero-step='0'] { animation-delay: 80ms !important; }
+  .hero-motion[data-hero-step='1'] { animation-delay: 160ms !important; }
+  .hero-motion[data-hero-step='2'] { animation-delay: 240ms !important; }
+  .hero-motion[data-hero-step='3'] { animation-delay: 320ms !important; }
+  .hero-motion[data-hero-step='4'] { animation-delay: 400ms !important; }
+  .hero-motion[data-hero-step='5'] { animation-delay: 480ms !important; }
+  .hero-motion[data-hero-step='6'] { animation-delay: 560ms !important; }
 
   .pricing-row[data-reveal] .pricing-leader {
-    transition-duration: 520ms;
+    transition-duration: 500ms !important;
   }
 
   .gold-button:hover,
@@ -216,41 +222,64 @@
   }
 }
 
+/*
+ * Accessibility: reduced-motion now REDUCES movement instead of disabling the
+ * animation system. This avoids the previous Windows/Chromium failure mode
+ * where the whole site was forced to 0.01ms / animation:none.
+ */
 @media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-duration: 360ms;
+  }
+
   html {
-    scroll-behavior: auto !important;
+    scroll-behavior: auto;
   }
 
-  [data-reveal],
-  [data-reveal][data-visible='true'],
-  .hero-motion,
+  [data-reveal] {
+    transform: translate3d(0, 8px, 0);
+    transition-duration: 360ms !important;
+    transition-delay: min(var(--reveal-delay, 0ms), 160ms);
+  }
+
+  [data-reveal='media'],
+  [data-reveal='card'] {
+    transform: translate3d(0, 6px, 0) scale(.992);
+  }
+
+  .hero-motion {
+    transform: translate3d(0, 8px, 0);
+    animation-duration: 420ms !important;
+  }
+
+  .hero-motion[data-hero-step='0'] { animation-delay: 40ms !important; }
+  .hero-motion[data-hero-step='1'] { animation-delay: 80ms !important; }
+  .hero-motion[data-hero-step='2'] { animation-delay: 120ms !important; }
+  .hero-motion[data-hero-step='3'] { animation-delay: 160ms !important; }
+  .hero-motion[data-hero-step='4'] { animation-delay: 200ms !important; }
+  .hero-motion[data-hero-step='5'] { animation-delay: 240ms !important; }
+  .hero-motion[data-hero-step='6'] { animation-delay: 280ms !important; }
+
+  .hero-image {
+    animation-duration: 560ms !important;
+  }
+
+  .atelier-header {
+    animation-duration: 360ms !important;
+  }
+
   .pricing-row[data-reveal] .pricing-service-name,
-  .pricing-row[data-reveal] .pricing-price,
+  .pricing-row[data-reveal] .pricing-price {
+    transition-duration: 300ms !important;
+  }
+
   .pricing-row[data-reveal] .pricing-leader {
-    opacity: 1 !important;
-    transform: none !important;
-    animation: none !important;
-    transition: none !important;
+    transition-duration: 340ms !important;
   }
 
-  .hero-image,
-  .atelier-header,
-  .hero-scroll span,
-  .service-card img,
-  .experience-media img,
-  .location-visual img {
-    animation: none !important;
-    transition: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-  }
-
-  .gold-button,
-  .ghost-button,
-  .service-link svg,
-  .header-call svg,
-  .gold-button svg {
-    transform: none !important;
-    transition: none !important;
+  .service-card[data-reveal] img,
+  .experience-media[data-reveal] img,
+  .location-visual[data-reveal] img {
+    transition-duration: 420ms, 300ms, 360ms !important;
   }
 }

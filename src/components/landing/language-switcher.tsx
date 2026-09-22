@@ -3,6 +3,8 @@
 import { cn } from '@/lib/utils';
 import { LANGUAGE_ORDER, useI18n } from '@/i18n';
 
+import './language-switcher.css';
+
 interface LanguageSwitcherProps {
   className?: string;
 }
@@ -16,10 +18,7 @@ export function LanguageSwitcher({ className }: LanguageSwitcherProps) {
     <div
       role="group"
       aria-label={t.switcherLabel}
-      className={cn(
-        'inline-flex items-center gap-px rounded-full shadow-[0_0_0_0.5px_var(--border-subtle)] bg-[var(--bg-secondary)] p-1',
-        className,
-      )}
+      className={cn('v2-language-switcher', className)}
     >
       {LANGUAGE_ORDER.map((code) => {
         const active = code === language;
@@ -30,12 +29,7 @@ export function LanguageSwitcher({ className }: LanguageSwitcherProps) {
             onClick={() => setLanguage(code)}
             aria-pressed={active}
             aria-label={t.languageNames[code]}
-            className={cn(
-              'type-eyebrow motion-level-1 inline-flex min-h-9 items-center justify-center rounded-full px-[var(--space-2)] transition-colors sm:min-h-11 sm:px-[var(--space-3)]',
-              active
-                ? 'shadow-[0_0_0_0.5px_var(--brand-accent)] text-[var(--brand-accent)]'
-                : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]',
-            )}
+            className={cn('type-eyebrow v2-language-option', active && 'is-active')}
           >
             {codeLabels[code]}
           </button>
