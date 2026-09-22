@@ -58,6 +58,22 @@ function useReveal() {
     const nodes = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'));
     if (!nodes.length) return;
 
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isMobile = window.matchMedia('(max-width: 809px)').matches;
+    const staggerStep = isMobile ? 55 : 95;
+    const maxDelay = isMobile ? 220 : 520;
+
+    nodes.forEach((node) => {
+      const step = Number(node.dataset.revealDelay ?? 0);
+      const delay = Math.min(Math.max(step, 0) * staggerStep, maxDelay);
+      node.style.setProperty('--reveal-delay', `${delay}ms`);
+    });
+
+    if (reduceMotion) {
+      nodes.forEach((node) => node.setAttribute('data-visible', 'true'));
+      return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -67,7 +83,7 @@ function useReveal() {
           }
         });
       },
-      { threshold: 0.14, rootMargin: '0px 0px -6% 0px' },
+      { threshold: 0.12, rootMargin: '0px 0px -7% 0px' },
     );
 
     nodes.forEach((node) => observer.observe(node));
@@ -118,9 +134,21 @@ function Header() {
   );
 }
 
-function Eyebrow({ children, centered = false }: { children: React.ReactNode; centered?: boolean }) {
+function Eyebrow({
+  children,
+  centered = false,
+  revealDelay,
+}: {
+  children: React.ReactNode;
+  centered?: boolean;
+  revealDelay?: number;
+}) {
   return (
-    <div className={`atelier-eyebrow ${centered ? 'is-centered' : ''}`}>
+    <div
+      className={`atelier-eyebrow ${centered ? 'is-centered' : ''}`}
+      data-reveal={revealDelay === undefined ? undefined : 'fade-up'}
+      data-reveal-delay={revealDelay}
+    >
       <span aria-hidden="true" />
       <p>{children}</p>
       {centered ? <span aria-hidden="true" /> : null}
@@ -139,8 +167,8 @@ function Metrics() {
   return (
     <section className="metrics-strip" aria-label="Atelier Barbers highlights">
       <div className="section-shell metrics-grid">
-        {items.map(([value, label]) => (
-          <div className="metric-item" key={label}>
+        {items.map(([value, label], index) => (
+          <div className="metric-item" key={label} data-reveal="fade-up" data-reveal-delay={index}>
             <strong>{value}</strong>
             <span>{label}</span>
           </div>
@@ -154,15 +182,21 @@ function Services() {
   return (
     <section className="atelier-section services-section" id="services">
       <div className="section-shell">
-        <div className="section-heading centered" data-reveal>
-          <Eyebrow centered>What We Do</Eyebrow>
-          <h2>Precision Services</h2>
-          <p>Every service performed with focus, craft, and care.</p>
+        <div className="section-heading centered">
+          <Eyebrow centered revealDelay={0}>What We Do</Eyebrow>
+          <h2 data-reveal="fade-up" data-reveal-delay={1}>Precision Services</h2>
+          <p data-reveal="fade-up" data-reveal-delay={2}>Every service performed with focus, craft, and care.</p>
         </div>
 
-        <div className="services-grid" data-reveal>
-          {services.map((service) => (
-            <a className="service-card" href="/contact" key={service.number}>
+        <div className="services-grid">
+          {services.map((service, index) => (
+            <a
+              className="service-card"
+              href="/contact"
+              key={service.number}
+              data-reveal="card"
+              data-reveal-delay={index}
+            >
               <img src={service.src} alt={`${service.title} at Atelier Barbers`} loading="lazy" />
               <span className="service-shade" aria-hidden="true" />
               <span className="service-number">{service.number}</span>
@@ -189,28 +223,28 @@ function Experience() {
 
   return (
     <section className="atelier-section experience-section" id="about">
-      <div className="section-shell experience-grid" data-reveal>
+      <div className="section-shell experience-grid">
         <div className="experience-copy">
-          <Eyebrow>The Experience</Eyebrow>
-          <h2>Sharp. Clean.<br />Every Time.</h2>
-          <p className="experience-lead">
+          <Eyebrow revealDelay={0}>The Experience</Eyebrow>
+          <h2 data-reveal="fade-up" data-reveal-delay={1}>Sharp. Clean.<br />Every Time.</h2>
+          <p className="experience-lead" data-reveal="fade-up" data-reveal-delay={2}>
             Walk into Atelier Barbers and you step into a CBD barber shop that takes its craft seriously.
             No rush, no shortcuts — just focused, expert service that sends you out looking sharp.
           </p>
           <div className="feature-list">
-            {features.map((feature) => (
-              <div className="feature-item" key={feature}>
+            {features.map((feature, index) => (
+              <div className="feature-item" key={feature} data-reveal="fade-up" data-reveal-delay={index + 2}>
                 <span><Check size={14} strokeWidth={2} /></span>
                 <p>{feature}</p>
               </div>
             ))}
           </div>
-          <div className="experience-hours">
+          <div className="experience-hours" data-reveal="fade-up" data-reveal-delay={5}>
             <div><strong>Open Mon-Sat</strong><span>Walk-ins always welcome</span></div>
           </div>
         </div>
 
-        <div className="experience-media">
+        <div className="experience-media" data-reveal="media" data-reveal-delay={1}>
           <img
             src={image('PaN26fmUFDFXpMRknfRImO1iv0', 'scale-down-to=2048')}
             alt="Atelier Barbers shop detail"
@@ -227,13 +261,13 @@ function Reviews() {
   return (
     <section className="atelier-section reviews-section">
       <div className="section-shell">
-        <div className="section-heading centered" data-reveal>
-          <Eyebrow centered>What People Say</Eyebrow>
-          <h2>Trusted by Melbourne</h2>
+        <div className="section-heading centered">
+          <Eyebrow centered revealDelay={0}>What People Say</Eyebrow>
+          <h2 data-reveal="fade-up" data-reveal-delay={1}>Trusted by Melbourne</h2>
         </div>
-        <div className="reviews-grid" data-reveal>
-          {reviews.map((review) => (
-            <article className="review-card" key={review.name}>
+        <div className="reviews-grid">
+          {reviews.map((review, index) => (
+            <article className="review-card" key={review.name} data-reveal="card" data-reveal-delay={index}>
               <div className="review-stars">★★★★★</div>
               <p>“{review.quote}”</p>
               <div className="review-author">
@@ -251,11 +285,11 @@ function Reviews() {
 function Location() {
   return (
     <section className="atelier-section location-section" id="contact">
-      <div className="section-shell location-grid" data-reveal>
+      <div className="section-shell location-grid">
         <div className="location-copy">
-          <Eyebrow>Find Us</Eyebrow>
-          <h2>We’re in the CBD.</h2>
-          <div className="contact-details">
+          <Eyebrow revealDelay={0}>Find Us</Eyebrow>
+          <h2 data-reveal="fade-up" data-reveal-delay={1}>We’re in the CBD.</h2>
+          <div className="contact-details" data-reveal="fade-up" data-reveal-delay={2}>
             <div>
               <span className="contact-label">Address</span>
               <p>12 Barber St<br />Melbourne VIC 3000</p>
@@ -269,9 +303,11 @@ function Location() {
               <p>Mon–Fri 10am–6pm · Sat 10am–4pm · Sun Closed</p>
             </div>
           </div>
-          <a className="gold-button" href="https://maps.google.com/?q=Melbourne+VIC+3000" target="_blank" rel="noreferrer">
-            Get Directions <ArrowRight size={15} />
-          </a>
+          <div data-reveal="fade-up" data-reveal-delay={3}>
+            <a className="gold-button" href="https://maps.google.com/?q=Melbourne+VIC+3000" target="_blank" rel="noreferrer">
+              Get Directions <ArrowRight size={15} />
+            </a>
+          </div>
         </div>
 
         <a
@@ -280,6 +316,8 @@ function Location() {
           target="_blank"
           rel="noreferrer"
           aria-label="Open Atelier Barbers in Maps"
+          data-reveal="media"
+          data-reveal-delay={1}
         >
           <img src={image('8kU6qS7pkNXrrBcNtOdv1qorU', 'scale-down-to=2048')} alt="Barber at work" loading="lazy" />
           <div className="location-pin"><MapPin size={21} /></div>
@@ -293,14 +331,14 @@ function Location() {
 function Footer() {
   return (
     <footer className="atelier-footer">
-      <div className="section-shell footer-top">
+      <div className="section-shell footer-top" data-reveal="fade-up" data-reveal-delay={0}>
         <div>
           <strong className="footer-wordmark">ATELIER</strong>
           <span>Barbers · Melbourne</span>
         </div>
         <a href="tel:+61412345678"><Phone size={14} /> 0412 345 678</a>
       </div>
-      <div className="section-shell footer-bottom">
+      <div className="section-shell footer-bottom" data-reveal="fade-up" data-reveal-delay={1}>
         <span>© 2026 Atelier Barbers. All rights reserved.</span>
         <div>
           <a href="/">Home</a>
@@ -330,12 +368,12 @@ export function LandingPage() {
         <div className="hero-noise" aria-hidden="true" />
         <div className="section-shell hero-inner">
           <div className="hero-copy">
-            <Eyebrow>Premium Barbers · Melbourne</Eyebrow>
-            <h1>ATELIER</h1>
-            <h2>BARBERS</h2>
-            <div className="hero-address"><span />12 Barber St, Melbourne VIC 3000</div>
-            <p className="hero-tagline">Sharp cuts. Clean lines. Walk in, walk out looking your best — every single time.</p>
-            <div className="hero-actions">
+            <div className="hero-motion" data-hero-step="0"><Eyebrow>Premium Barbers · Melbourne</Eyebrow></div>
+            <h1 className="hero-motion" data-hero-step="1">ATELIER</h1>
+            <h2 className="hero-motion" data-hero-step="2">BARBERS</h2>
+            <div className="hero-address hero-motion" data-hero-step="3"><span />12 Barber St, Melbourne VIC 3000</div>
+            <p className="hero-tagline hero-motion" data-hero-step="4">Sharp cuts. Clean lines. Walk in, walk out looking your best — every single time.</p>
+            <div className="hero-actions hero-motion" data-hero-step="5">
               <a className="gold-button" href="https://maps.google.com/?q=Melbourne+VIC+3000" target="_blank" rel="noreferrer">
                 Get Directions <ArrowRight size={15} />
               </a>
@@ -343,7 +381,7 @@ export function LandingPage() {
             </div>
           </div>
         </div>
-        <div className="hero-scroll">SCROLL <span /></div>
+        <div className="hero-scroll hero-motion" data-hero-step="6">SCROLL <span /></div>
       </section>
 
       <Metrics />
