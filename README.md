@@ -1,26 +1,24 @@
-# Modelo Barber v1
+# Modelo Barber v2
 
-suba esse repositorio do github https://github.com/PlimPolas/barbershop-design-system-master.git
+Reconstrução responsiva do site Atelier Barbers dentro da stack Lovable / TanStack Start, usando o HTML e os assets de referência fornecidos para reproduzir a identidade visual, estrutura, páginas e interações.
 
-This project was built with [Lovable](https://lovable.dev).
+## Projeto Lovable
 
-**Live app**: https://design-sparkle-60.lovable.app
+- Editor: https://lovable.dev/projects/aca23557-6a63-4894-b000-ec07c365fea0
+- Preview: https://id-preview--aca23557-6a63-4894-b000-ec07c365fea0.lovable.app
 
-## Build with Lovable
+## Páginas
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/1750a0dc-66a6-47f3-8ad2-c4c474d9908e).
+- `/` — Home
+- `/services` — Services
+- `/about` — About
+- `/contact` — Contact
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+## Stack
 
-## Development
+- TanStack Start
+- React + TypeScript
+- Tailwind CSS
+- Lovable ↔ GitHub sync
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
+As alterações feitas no branch `main` são sincronizadas com o projeto Modelo Barber v2 no Lovable.
