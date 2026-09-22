@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { ArrowRight, Check, Menu, Phone, X } from 'lucide-react';
 
 import { demoLocation } from '@/data/demo-location';
+import { heroConfig } from '@/data/hero';
 import { useI18n, type LanguageCode } from '@/i18n';
 import { LanguageSwitcher } from './language-switcher';
 import { LocationMap } from './location-map';
@@ -66,7 +67,7 @@ function useReveal() {
     const staggerStep = isMobile ? 70 : 100;
     const maxDelay = isMobile ? 280 : 500;
     nodes.forEach((node) => {
-      const step = Number(node.dataset.revealDelay ?? 0);
+      const step = Number(node.dataset['revealDelay'] ?? 0);
       node.style.setProperty('--reveal-delay', `${Math.min(Math.max(step, 0) * staggerStep, maxDelay)}ms`);
     });
     if (!('IntersectionObserver' in window)) {
@@ -109,6 +110,22 @@ function Metrics() {
   return <section className="metrics-strip" aria-label="Atelier Barbers highlights"><div className="section-shell metrics-grid">{copy[language].metrics.map(([value, label]: string[], index: number) => <div className="metric-item" key={label} data-reveal="fade-up" data-reveal-delay={index}><strong>{value}</strong><span>{label}</span></div>)}</div></section>;
 }
 
+function HeroMarquee() {
+  const { language } = useI18n();
+  const items = heroConfig.locales[language].marqueeItems;
+  return (
+    <div className="hero-marquee" aria-label={items.join(', ')}>
+      <div className="hero-marquee-track">
+        {[0, 1].map((group) => (
+          <div className="hero-marquee-group" aria-hidden={group === 1} key={group}>
+            {items.map((item) => <span className="hero-marquee-item" key={`${group}-${item}`}>{item}<i aria-hidden="true" /></span>)}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function Services() {
   const { language } = useI18n();
   const t = copy[language].services;
@@ -142,6 +159,6 @@ function Footer() {
 export function LandingPage() {
   useReveal();
   const { language } = useI18n();
-  const t = copy[language].hero;
-  return <main className="atelier-site" id="top"><Header /><section className="hero-section"><img className="hero-image" src={image('odHeYERnwVXDnc8B02KIbADP4', 'scale-down-to=2048')} alt="Barber giving a precision haircut at Atelier Barbers, Melbourne" /><div className="hero-overlay" aria-hidden="true" /><div className="hero-noise" aria-hidden="true" /><div className="section-shell hero-inner"><div className="hero-copy"><div className="hero-motion" data-hero-step="0"><Eyebrow>{t.eyebrow}</Eyebrow></div><h1 className="hero-motion" data-hero-step="1">ATELIER</h1><h2 className="hero-motion" data-hero-step="2">BARBERS</h2><div className="hero-address hero-motion" data-hero-step="3"><span />{demoLocation.address.full}</div><p className="hero-tagline hero-motion" data-hero-step="4">{t.tagline}</p><div className="hero-actions hero-motion" data-hero-step="5"><a className="gold-button" href={demoLocation.googleMaps.directionsUrl} target="_blank" rel="noreferrer">{t.directions} <ArrowRight size={15} /></a><a className="ghost-button" href={demoLocation.phone.href}>{t.call}</a></div></div></div><div className="hero-scroll hero-motion" data-hero-step="6">{t.scroll} <span /></div></section><Metrics /><Services /><PricingSection /><TeamSection /><Experience /><Reviews /><Location /><Footer /></main>;
+  const hero = heroConfig.locales[language];
+  return <main className="atelier-site" id="top"><Header /><section className="hero-section"><div className="hero-content"><div className="hero-copy"><div className="hero-motion" data-hero-step="0"><Eyebrow>{hero.eyebrow}</Eyebrow></div><h1 className="hero-title" aria-label={hero.headline.join(' ')}>{hero.headline.map((line, index) => <span className={`hero-title-line hero-motion ${index === 2 ? 'title-stroke' : ''}`} data-hero-step={index + 1} aria-hidden="true" key={line}>{line}</span>)}</h1><p className="hero-tagline hero-motion" data-hero-step="4">{hero.description}</p><div className="hero-actions hero-motion" data-hero-step="5"><a className="gold-button" href={demoLocation.googleMaps.directionsUrl} target="_blank" rel="noreferrer">{hero.directions} <ArrowRight size={15} /></a><a className="ghost-button" href={demoLocation.phone.href}>{hero.call}</a></div></div></div><div className="hero-image-panel"><img className="hero-image" src={heroConfig.image.src} srcSet={heroConfig.image.srcSet} sizes="(max-width: 809px) 100vw, 54vw" alt={heroConfig.image.alt[language]} fetchPriority="high" /><div className="hero-image-blend" aria-hidden="true" /></div><div className="hero-noise" aria-hidden="true" /></section><HeroMarquee /><Metrics /><Services /><PricingSection /><TeamSection /><Experience /><Reviews /><Location /><Footer /></main>;
 }

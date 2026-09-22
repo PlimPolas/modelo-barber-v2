@@ -61,8 +61,10 @@ export function GallerySection() {
   const previousIndex = wrap(activeSlide - 1, total);
   const nextIndex = wrap(activeSlide + 1, total);
   const activeCategory = galleryCategories[activeSlide];
+  if (!activeCategory) return null;
   const activeImageIndex = Math.min(activeByCategory[activeCategory.id] ?? 0, activeCategory.images.length - 1);
   const activeImage = activeCategory.images[activeImageIndex];
+  if (!activeImage) return null;
   const activeThumbIndexes = getThumbnailIndexes(activeCategory, activeImageIndex);
 
   const setCategoryImage = (categoryId: string, imageIndex: number) => {
@@ -75,8 +77,10 @@ export function GallerySection() {
 
   const renderSideCard = (categoryIndex: number, side: 'left' | 'right') => {
     const category = galleryCategories[categoryIndex];
+    if (!category) return null;
     const imageIndex = Math.min(activeByCategory[category.id] ?? 0, category.images.length - 1);
     const sideImage = category.images[imageIndex];
+    if (!sideImage) return null;
     const previewIndexes = getThumbnailIndexes(category, imageIndex).slice(0, 2);
 
     return (
@@ -107,7 +111,7 @@ export function GallerySection() {
         </div>
         <div className="gallery-side-card__thumbs" aria-hidden="true">
           {previewIndexes.map((index) => (
-            <img key={`${category.id}-preview-${index}`} src={category.images[index].src} alt="" loading="lazy" />
+            category.images[index] ? <img key={`${category.id}-preview-${index}`} src={category.images[index]?.src} alt="" loading="lazy" /> : null
           ))}
         </div>
       </article>
@@ -173,6 +177,7 @@ export function GallerySection() {
             <div className="gallery-feature-card__thumbs" aria-label={`${activeCategory.name[language]} thumbnails`}>
               {activeThumbIndexes.map((index) => {
                 const item = activeCategory.images[index];
+                if (!item) return null;
                 const isActive = index === activeImageIndex;
                 return (
                   <button
