@@ -1,0 +1,211 @@
+:root {
+  --motion-ease-premium: cubic-bezier(.22, 1, .36, 1);
+  --motion-duration: 780ms;
+}
+
+/* Scroll reveals: only opacity + transform for smooth, low-cost motion. */
+[data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition-property: opacity, transform;
+  transition-duration: var(--motion-duration);
+  transition-timing-function: var(--motion-ease-premium);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+[data-reveal='media'] {
+  transform: translate3d(0, 22px, 0) scale(.985);
+}
+
+[data-reveal='card'] {
+  transform: translate3d(0, 24px, 0);
+}
+
+[data-reveal][data-visible='true'] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  will-change: auto;
+}
+
+/* Hero: staggered editorial entrance without changing layout. */
+.hero-copy {
+  animation: none;
+}
+
+.hero-motion {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+  animation: hero-element-in 760ms var(--motion-ease-premium) forwards;
+  will-change: opacity, transform;
+}
+
+.hero-motion[data-hero-step='0'] { animation-delay: 120ms; }
+.hero-motion[data-hero-step='1'] { animation-delay: 210ms; }
+.hero-motion[data-hero-step='2'] { animation-delay: 300ms; }
+.hero-motion[data-hero-step='3'] { animation-delay: 390ms; }
+.hero-motion[data-hero-step='4'] { animation-delay: 480ms; }
+.hero-motion[data-hero-step='5'] { animation-delay: 570ms; }
+.hero-motion[data-hero-step='6'] { animation-delay: 660ms; }
+
+.hero-image {
+  animation: hero-image-premium-in 1.25s var(--motion-ease-premium) both;
+  will-change: opacity, transform;
+}
+
+.atelier-header {
+  animation: header-premium-in 620ms var(--motion-ease-premium) both;
+}
+
+/* Refined click/hover feedback. Existing visual treatment is preserved. */
+.gold-button,
+.ghost-button,
+.header-call,
+.atelier-nav a,
+.mobile-menu a,
+.footer-top a,
+.footer-bottom a,
+.contact-details a,
+.service-link {
+  transition-timing-function: var(--motion-ease-premium);
+  transition-duration: 240ms;
+}
+
+.gold-button:hover,
+.ghost-button:hover {
+  transform: translate3d(0, -2px, 0);
+}
+
+.service-card {
+  transition-property: transform, border-color;
+  transition-duration: 260ms;
+  transition-timing-function: var(--motion-ease-premium);
+}
+
+.service-card[data-visible='true']:hover {
+  transform: translate3d(0, -3px, 0);
+  border-color: rgba(245, 240, 232, .18);
+}
+
+.service-link svg,
+.header-call svg,
+.gold-button svg {
+  transition: transform 240ms var(--motion-ease-premium);
+}
+
+.service-card:hover .service-link svg,
+.header-call:hover svg,
+.gold-button:hover svg {
+  transform: translate3d(3px, 0, 0);
+}
+
+.review-card {
+  transition: border-color 240ms var(--motion-ease-premium), background 240ms var(--motion-ease-premium);
+}
+
+.review-card:hover {
+  border-color: rgba(245, 240, 232, .17);
+}
+
+@keyframes hero-element-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 22px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes hero-image-premium-in {
+  from {
+    opacity: .72;
+    transform: scale(1.045);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.025);
+  }
+}
+
+@keyframes header-premium-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -10px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (max-width: 809px) {
+  :root {
+    --motion-duration: 660ms;
+  }
+
+  [data-reveal] {
+    transform: translate3d(0, 18px, 0);
+  }
+
+  [data-reveal='media'] {
+    transform: translate3d(0, 14px, 0) scale(.992);
+  }
+
+  [data-reveal='card'] {
+    transform: translate3d(0, 18px, 0);
+  }
+
+  .hero-motion {
+    transform: translate3d(0, 16px, 0);
+    animation-duration: 680ms;
+  }
+
+  .hero-motion[data-hero-step='0'] { animation-delay: 80ms; }
+  .hero-motion[data-hero-step='1'] { animation-delay: 135ms; }
+  .hero-motion[data-hero-step='2'] { animation-delay: 190ms; }
+  .hero-motion[data-hero-step='3'] { animation-delay: 245ms; }
+  .hero-motion[data-hero-step='4'] { animation-delay: 300ms; }
+  .hero-motion[data-hero-step='5'] { animation-delay: 355ms; }
+  .hero-motion[data-hero-step='6'] { animation-delay: 410ms; }
+
+  .service-card[data-visible='true']:hover,
+  .gold-button:hover,
+  .ghost-button:hover {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  [data-reveal],
+  [data-reveal][data-visible='true'],
+  .hero-motion {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .hero-image,
+  .atelier-header,
+  .hero-scroll span {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .service-card,
+  .service-card[data-visible='true']:hover,
+  .gold-button,
+  .ghost-button,
+  .service-link svg,
+  .header-call svg,
+  .gold-button svg {
+    transform: none !important;
+    transition: none !important;
+  }
+}
