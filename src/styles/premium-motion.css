@@ -39,6 +39,10 @@
   animation: none !important;
 }
 
+.hero-title {
+  letter-spacing: 0;
+}
+
 .hero-motion {
   opacity: 0;
   transform: translate3d(0, 34px, 0);

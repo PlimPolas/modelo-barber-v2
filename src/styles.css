@@ -99,9 +99,9 @@ img {
   align-items: center;
   padding-inline: max(var(--gutter), calc((100vw - var(--shell)) / 2));
   border-bottom: 1px solid rgba(245, 240, 232, 0.09);
-  background: rgba(13, 13, 13, 0.88);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background: rgba(13, 13, 13, 0.82);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
 }
 
 .atelier-brand {
