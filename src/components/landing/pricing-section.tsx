@@ -1,6 +1,7 @@
 'use client';
 
 import { useI18n, type LanguageCode } from '@/i18n';
+import { GallerySection } from './gallery-section';
 
 const pricingCopy: Record<LanguageCode, { eyebrow: string; title: string; description: string; columns: string[][][] }> = {
   pt: {
@@ -37,29 +38,32 @@ export function PricingSection() {
   const t = pricingCopy[language];
 
   return (
-    <section className="atelier-section pricing-section" aria-labelledby="pricing-title">
-      <div className="section-shell">
-        <div className="pricing-header">
-          <div className="pricing-heading-block">
-            <p className="pricing-eyebrow" data-reveal="fade-up" data-reveal-delay={0}>{t.eyebrow}</p>
-            <h2 className="pricing-title" id="pricing-title" data-reveal="fade-up" data-reveal-delay={1}>{t.title}</h2>
-          </div>
-          <p className="pricing-description" data-reveal="fade-up" data-reveal-delay={1}>{t.description}</p>
-        </div>
-        <div className="pricing-grid">
-          {t.columns.map((column, columnIndex) => (
-            <div className="pricing-column" key={`pricing-column-${columnIndex + 1}`}>
-              {column.map(([name, price], rowIndex) => (
-                <div className="pricing-row" key={`${name}-${price}`} data-reveal="fade-up" data-reveal-delay={rowIndex}>
-                  <span className="pricing-service-name">{name}</span>
-                  <span className="pricing-leader" aria-hidden="true" />
-                  <span className="pricing-price">{price}</span>
-                </div>
-              ))}
+    <>
+      <GallerySection />
+      <section className="atelier-section pricing-section" aria-labelledby="pricing-title">
+        <div className="section-shell">
+          <div className="pricing-header">
+            <div className="pricing-heading-block">
+              <p className="pricing-eyebrow" data-reveal="fade-up" data-reveal-delay={0}>{t.eyebrow}</p>
+              <h2 className="pricing-title" id="pricing-title" data-reveal="fade-up" data-reveal-delay={1}>{t.title}</h2>
             </div>
-          ))}
+            <p className="pricing-description" data-reveal="fade-up" data-reveal-delay={1}>{t.description}</p>
+          </div>
+          <div className="pricing-grid">
+            {t.columns.map((column, columnIndex) => (
+              <div className="pricing-column" key={`pricing-column-${columnIndex + 1}`}>
+                {column.map(([name, price], rowIndex) => (
+                  <div className="pricing-row" key={`${name}-${price}`} data-reveal="fade-up" data-reveal-delay={rowIndex}>
+                    <span className="pricing-service-name">{name}</span>
+                    <span className="pricing-leader" aria-hidden="true" />
+                    <span className="pricing-price">{price}</span>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
