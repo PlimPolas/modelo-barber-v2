@@ -78,16 +78,16 @@ function Header() {
 
   return (
     <header className="atelier-header">
-      <a className="atelier-brand" href="#top" aria-label="Atelier Barbers home">
+      <a className="atelier-brand" href="/" aria-label="Atelier Barbers home">
         <span className="atelier-brand-main">ATELIER</span>
         <span className="atelier-brand-sub">barbers</span>
       </a>
 
       <nav className="atelier-nav" aria-label="Primary navigation">
-        <a href="#top">Home</a>
-        <a href="#services">Services</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
+        <a href="/">Home</a>
+        <a href="/services">Services</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
       </nav>
 
       <a className="header-call" href="tel:+61412345678">
@@ -106,10 +106,10 @@ function Header() {
       </button>
 
       <div className={`mobile-menu ${open ? 'is-open' : ''}`}>
-        <a href="#top" onClick={() => setOpen(false)}>Home</a>
-        <a href="#services" onClick={() => setOpen(false)}>Services</a>
-        <a href="#about" onClick={() => setOpen(false)}>About</a>
-        <a href="#contact" onClick={() => setOpen(false)}>Contact</a>
+        <a href="/" onClick={() => setOpen(false)}>Home</a>
+        <a href="/services" onClick={() => setOpen(false)}>Services</a>
+        <a href="/about" onClick={() => setOpen(false)}>About</a>
+        <a href="/contact" onClick={() => setOpen(false)}>Contact</a>
         <a href="tel:+61412345678" onClick={() => setOpen(false)}>Call Now</a>
       </div>
     </header>
@@ -160,7 +160,7 @@ function Services() {
 
         <div className="services-grid" data-reveal>
           {services.map((service) => (
-            <a className="service-card" href="#contact" key={service.number}>
+            <a className="service-card" href="/contact" key={service.number}>
               <img src={service.src} alt={`${service.title} at Atelier Barbers`} loading="lazy" />
               <span className="service-shade" aria-hidden="true" />
               <span className="service-number">{service.number}</span>
@@ -301,10 +301,10 @@ function Footer() {
       <div className="section-shell footer-bottom">
         <span>© 2026 Atelier Barbers. All rights reserved.</span>
         <div>
-          <a href="#top">Home</a>
-          <a href="#services">Services</a>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
+          <a href="/">Home</a>
+          <a href="/services">Services</a>
+          <a href="/about">About</a>
+          <a href="/contact">Contact</a>
         </div>
       </div>
     </footer>
