@@ -1,268 +1,355 @@
 'use client';
 
-import {
-  ArrowRight,
-  AtSign,
-  Check,
-  MessageCircle,
-  Phone,
-} from 'lucide-react';
-import type React from 'react';
-import { Link } from '@/lib/app-link';
+import { useEffect, useState } from 'react';
+import { ArrowRight, Check, MapPin, Menu, Phone, X } from 'lucide-react';
 
-import { ActionLink } from '@/components/actions';
-import { PageContainer, SectionContainer, SectionHeader } from '@/components/layout';
-import { FocalImage } from '@/components/media';
-import { barbers, brand, landingContent, locations, media, reviews, services } from '@/data';
-import { localizeBarber, localizeLocation, localizeReview, localizeService, useI18n } from '@/i18n';
-import type { Dictionary } from '@/i18n';
-import type { MediaAsset } from '@/types';
+const image = (name: string, params = 'scale-down-to=2048') =>
+  `https://framerusercontent.com/images/${name}.jpg?${params}`;
 
-import { GalleryTicker } from './gallery-ticker';
-import { formatPhoneHref, formatWhatsappHref, LocationSection } from './location-section';
-import { ReviewsSection } from './reviews-section';
-import { ServiceCard } from './service-card';
-import { SiteNavbar } from './site-navbar';
-import { TeamSection } from './team-section';
+const services = [
+  {
+    number: '01',
+    title: 'Haircuts',
+    body: 'Classic cuts to contemporary styles — sharp, clean, tailored to you.',
+    src: image('N2WiUItXHzq3pVso0NMy3nJfbw'),
+  },
+  {
+    number: '02',
+    title: 'Fades',
+    body: 'Skin, mid, and high fades executed with precision and consistency.',
+    src: image('8kU6qS7pkNXrrBcNtOdv1qorU'),
+  },
+  {
+    number: '03',
+    title: 'Beard Trims',
+    body: 'Line-ups, shaping, and grooming for a crisp, defined finish.',
+    src: image('L7O72RaIUlKcUL0Ee0w8GWHWTdw'),
+  },
+  {
+    number: '04',
+    title: 'Styling',
+    body: 'Wax, clay, pomade — product advice and finish styling included.',
+    src: image('KKaVDUSPNEebhUYqUAQHmKgYM'),
+  },
+];
 
-function getMedia(id: string) {
-  const asset = media.find((item) => item.id === id);
-  if (!asset) throw new Error(`Missing media asset: ${id}`);
-  return asset;
+const reviews = [
+  {
+    quote:
+      'Best barbershop in the area. Skilled team with great attention to detail and top-notch service. The prices are fair for the quality you get — I wouldn’t go anywhere else.',
+    name: 'James R.',
+  },
+  {
+    quote:
+      'Walked in on a Saturday without a booking and they fit me right in. Best fade I’ve had in years — clean lines, great attention to detail. Will definitely be back every fortnight.',
+    name: 'Marcus T.',
+  },
+  {
+    quote:
+      'Hands down the best barbershop in Melbourne. Showed up with no idea what I wanted and walked out looking sharper than ever. The team genuinely cares about their craft.',
+    name: 'Daniel P.',
+  },
+];
+
+function useReveal() {
+  useEffect(() => {
+    const nodes = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'));
+    if (!nodes.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.setAttribute('data-visible', 'true');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.14, rootMargin: '0px 0px -6% 0px' },
+    );
+
+    nodes.forEach((node) => observer.observe(node));
+    return () => observer.disconnect();
+  }, []);
 }
 
-function Hero({ asset, t }: { asset: MediaAsset; t: Dictionary }) {
-  const content = t.hero;
+function Header() {
+  const [open, setOpen] = useState(false);
 
   return (
-    <section id="inicio" className="landing-anchor relative min-h-[100svh] overflow-hidden bg-[var(--background-primary)]">
-      <div className="hero-media hero-media-enter absolute inset-0">
-        <FocalImage
-          asset={asset}
-          aspectRatio="auto"
-          priority
-          sizes="100vw"
-          className="absolute inset-0 h-full w-full"
-          imageClassName="h-full w-full"
-        />
+    <header className="atelier-header">
+      <a className="atelier-brand" href="#top" aria-label="Atelier Barbers home">
+        <span className="atelier-brand-main">ATELIER</span>
+        <span className="atelier-brand-sub">barbers</span>
+      </a>
+
+      <nav className="atelier-nav" aria-label="Primary navigation">
+        <a href="#top">Home</a>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <a className="header-call" href="tel:+61412345678">
+        <span>Call Now</span>
+        <ArrowRight size={15} strokeWidth={1.8} />
+      </a>
+
+      <button
+        className="menu-button"
+        type="button"
+        aria-label={open ? 'Close menu' : 'Open menu'}
+        aria-expanded={open}
+        onClick={() => setOpen((value) => !value)}
+      >
+        {open ? <X size={22} /> : <Menu size={22} />}
+      </button>
+
+      <div className={`mobile-menu ${open ? 'is-open' : ''}`}>
+        <a href="#top" onClick={() => setOpen(false)}>Home</a>
+        <a href="#services" onClick={() => setOpen(false)}>Services</a>
+        <a href="#about" onClick={() => setOpen(false)}>About</a>
+        <a href="#contact" onClick={() => setOpen(false)}>Contact</a>
+        <a href="tel:+61412345678" onClick={() => setOpen(false)}>Call Now</a>
       </div>
-      <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-[var(--container-wide)] items-end px-[var(--page-gutter)] pb-[var(--space-9)] pt-[calc(var(--landing-header-height)+var(--space-8))] md:pb-[var(--space-11)]">
-        <div className="max-w-[46rem]">
-          <div className="hero-enter flex items-center gap-[var(--space-4)]">
-            <span aria-hidden="true" className="hero-rule" />
-            <p className="type-eyebrow text-[var(--brand-accent)]">{content.eyebrow}</p>
+    </header>
+  );
+}
+
+function Eyebrow({ children, centered = false }: { children: React.ReactNode; centered?: boolean }) {
+  return (
+    <div className={`atelier-eyebrow ${centered ? 'is-centered' : ''}`}>
+      <span aria-hidden="true" />
+      <p>{children}</p>
+      {centered ? <span aria-hidden="true" /> : null}
+    </div>
+  );
+}
+
+function Metrics() {
+  const items = [
+    ['4.5 ★', 'Google Rating'],
+    ['245+', 'Verified Reviews'],
+    ['BARBER ST', 'Melbourne CBD'],
+    ['WALK IN', 'Always Welcome'],
+  ];
+
+  return (
+    <section className="metrics-strip" aria-label="Atelier Barbers highlights">
+      <div className="section-shell metrics-grid">
+        {items.map(([value, label]) => (
+          <div className="metric-item" key={label}>
+            <strong>{value}</strong>
+            <span>{label}</span>
           </div>
-          <h1 className="hero-enter type-display-xl mt-[var(--space-5)] max-w-[10ch]" style={{ "--hero-delay-step": "140ms" } as React.CSSProperties}>{content.title}</h1>
-          <p className="hero-enter type-body-large mt-[var(--space-6)] max-w-[34rem] text-[var(--text-secondary)]" style={{ "--hero-delay-step": "280ms" } as React.CSSProperties}>
-            {content.description}
-          </p>
-          <div className="hero-enter mt-[var(--space-7)] flex flex-col gap-[var(--space-3)] sm:flex-row sm:items-center" style={{ "--hero-delay-step": "420ms" } as React.CSSProperties}>
-            <ActionLink href="/booking" size="large">
-              {content.primaryAction}
-              <ArrowRight aria-hidden="true" />
-            </ActionLink>
-            <ActionLink href="#servicos" size="large" tone="secondary">
-              {content.secondaryAction}
-            </ActionLink>
-          </div>
-        </div>
-      </div>
-      <div className="absolute bottom-[var(--space-9)] right-[var(--page-gutter)] z-10 hidden items-center gap-3 lg:flex">
-        <span className="h-px w-12 bg-[var(--brand-accent)]" />
-        <span className="type-eyebrow text-[var(--text-secondary)]">{content.scrollHint}</span>
+        ))}
       </div>
     </section>
   );
 }
 
-export function LandingPage() {
-  const { t } = useI18n();
-  const baseLocation = locations.find((item) => item.active) ?? locations[0]!;
-  const location = localizeLocation(baseLocation, t);
-  const activeServices = services
-    .filter((item) => item.active)
-    .sort((a, b) => a.sortOrder - b.sortOrder)
-    .map((item) => localizeService(item, t));
-  const activeBarbers = barbers
-    .filter((item) => item.active)
-    .sort((a, b) => a.sortOrder - b.sortOrder)
-    .map((item) => localizeBarber(item, t));
-  const featuredReviews = reviews.filter((item) => item.featured).map((item) => localizeReview(item, t));
-  const galleryItems = landingContent.gallery.mediaIds.map(getMedia);
+function Services() {
+  return (
+    <section className="atelier-section services-section" id="services">
+      <div className="section-shell">
+        <div className="section-heading centered" data-reveal>
+          <Eyebrow centered>What We Do</Eyebrow>
+          <h2>Precision Services</h2>
+          <p>Every service performed with focus, craft, and care.</p>
+        </div>
+
+        <div className="services-grid" data-reveal>
+          {services.map((service) => (
+            <a className="service-card" href="#contact" key={service.number}>
+              <img src={service.src} alt={`${service.title} at Atelier Barbers`} loading="lazy" />
+              <span className="service-shade" aria-hidden="true" />
+              <span className="service-number">{service.number}</span>
+              <div className="service-copy">
+                <h3>{service.title}</h3>
+                <p>{service.body}</p>
+                <span className="service-link">Enquire <ArrowRight size={14} /></span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Experience() {
+  const features = [
+    'Precision cuts tailored to your face shape',
+    'Walk-in friendly — no booking required',
+    'Right in the heart of Melbourne CBD',
+    'Experienced barbers, consistent results',
+  ];
 
   return (
-    <div className="landing-shell bg-[var(--background-primary)] text-[var(--text-primary)]">
-      <SiteNavbar
-        brand={brand}
-        links={t.navigation.links}
-        bookingLabel={t.navigation.bookingLabel}
-        menuLabel={t.navigation.menuLabel}
-      />
-
-      <PageContainer>
-        <Hero asset={getMedia(landingContent.hero.mediaId)} t={t} />
-
-        <section aria-label={t.socialProof.label} className="border-b border-[var(--border-subtle)] bg-[var(--background-primary)]">
-          <div className="mx-auto grid max-w-[var(--container-wide)] grid-cols-2 gap-y-[var(--space-6)] px-[var(--page-gutter)] py-[var(--space-7)] sm:grid-cols-4 md:py-[var(--space-8)]">
-            {t.socialProof.items.map((metric, index) => (
-              <div
-                key={metric.key}
-                className={`${index < 2 ? '' : 'hidden sm:block'} border-l border-[var(--border-subtle)] px-[var(--space-4)] md:px-[var(--space-6)]`}
-              >
-                <p className="type-h3 text-[var(--text-primary)]">{metric.value}</p>
-                <p className="type-small mt-[var(--space-2)] text-[var(--text-muted)]">{metric.label}</p>
+    <section className="atelier-section experience-section" id="about">
+      <div className="section-shell experience-grid" data-reveal>
+        <div className="experience-copy">
+          <Eyebrow>The Experience</Eyebrow>
+          <h2>Sharp. Clean.<br />Every Time.</h2>
+          <p className="experience-lead">
+            Walk into Atelier Barbers and you step into a CBD barber shop that takes its craft seriously.
+            No rush, no shortcuts — just focused, expert service that sends you out looking sharp.
+          </p>
+          <div className="feature-list">
+            {features.map((feature) => (
+              <div className="feature-item" key={feature}>
+                <span><Check size={14} strokeWidth={2} /></span>
+                <p>{feature}</p>
               </div>
             ))}
           </div>
-        </section>
+          <div className="experience-hours">
+            <div><strong>Open Mon-Sat</strong><span>Walk-ins always welcome</span></div>
+          </div>
+        </div>
 
-        <SectionContainer id="servicos" size="wide" spacing="editorial" className="landing-anchor">
-          <SectionHeader
-            eyebrow={t.services.eyebrow}
-            title={t.services.title}
-            description={t.services.description}
+        <div className="experience-media">
+          <img
+            src={image('PaN26fmUFDFXpMRknfRImO1iv0', 'scale-down-to=2048')}
+            alt="Atelier Barbers shop detail"
+            loading="lazy"
           />
-          <div className="mt-[var(--space-8)] grid gap-px border-y border-[var(--border-subtle)] bg-[var(--border-subtle)] md:grid-cols-2">
-            {activeServices.map((service) => (
-              <ServiceCard
-                key={service.id}
-                service={service}
-                actionLabel={t.services.actionLabel}
-                featuredLabel={t.services.featuredLabel}
-                minutesSuffix={t.services.minutesSuffix}
-                locale={t.locale}
-              />
-            ))}
-          </div>
-        </SectionContainer>
+          <span className="experience-frame" aria-hidden="true" />
+        </div>
+      </div>
+    </section>
+  );
+}
 
-
-        <TeamSection barbers={activeBarbers} resolveMedia={getMedia} />
-
-        <section id="galeria" className="landing-anchor overflow-hidden border-y border-[var(--border-subtle)] bg-[var(--background-secondary)] py-[var(--space-9)] md:py-[var(--space-11)]">
-          <div className="mx-auto mb-[var(--space-8)] max-w-[var(--container-wide)] px-[var(--page-gutter)] md:mb-[var(--space-9)]">
-            <SectionHeader
-              eyebrow={t.gallery.eyebrow}
-              title={t.gallery.title}
-              description={t.gallery.description}
-            />
-          </div>
-          <GalleryTicker items={galleryItems} />
-        </section>
-
-        <ReviewsSection reviews={featuredReviews} locale={t.locale} />
-
-        <section className="border-y border-[var(--border-subtle)] bg-[var(--background-secondary)]">
-          <SectionContainer size="wide" spacing="default">
-            <div className="grid gap-[var(--space-8)] lg:grid-cols-[minmax(0,1fr)_minmax(22rem,.9fr)] lg:items-end lg:gap-[var(--space-10)]">
-              <SectionHeader
-                eyebrow={t.booking.eyebrow}
-                title={t.booking.title}
-                description={t.booking.description}
-                action={
-                  <ActionLink href="/booking" size="large">
-                    {t.booking.actionLabel}
-                    <ArrowRight aria-hidden="true" />
-                  </ActionLink>
-                }
-              />
-              <div>
-                <p className="type-small flex items-center gap-2 text-[var(--text-secondary)]">
-                  <Check aria-hidden="true" className="size-4 text-[var(--brand-accent)]" />
-                  {t.booking.benefit}
-                </p>
-                <ol className="mt-[var(--space-5)] flex flex-col gap-[var(--space-3)] border-t border-[var(--border-subtle)] pt-[var(--space-5)] sm:flex-row sm:items-center sm:justify-between sm:gap-[var(--space-2)]">
-                  {t.booking.steps.map((step, index) => (
-                    <li key={step} className="flex items-center gap-[var(--space-3)] whitespace-nowrap sm:gap-[var(--space-2)]">
-                      {index > 0 ? (
-                        <ArrowRight aria-hidden="true" className="mr-[var(--space-2)] hidden size-3.5 shrink-0 text-[var(--text-muted)] sm:block" />
-                      ) : null}
-                      <span className="type-eyebrow text-[var(--brand-accent)]">0{index + 1}</span>
-                      <p className="type-label">{step}</p>
-                    </li>
-                  ))}
-                </ol>
+function Reviews() {
+  return (
+    <section className="atelier-section reviews-section">
+      <div className="section-shell">
+        <div className="section-heading centered" data-reveal>
+          <Eyebrow centered>What People Say</Eyebrow>
+          <h2>Trusted by Melbourne</h2>
+        </div>
+        <div className="reviews-grid" data-reveal>
+          {reviews.map((review) => (
+            <article className="review-card" key={review.name}>
+              <div className="review-stars">★★★★★</div>
+              <p>“{review.quote}”</p>
+              <div className="review-author">
+                <strong>{review.name}</strong>
+                <span>Google Review</span>
               </div>
-            </div>
-          </SectionContainer>
-        </section>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 
-        <LocationSection location={location} />
-
-        <section className="bg-[var(--surface-inverse)] text-[var(--text-inverse)]">
-          <SectionContainer size="wide" spacing="editorial">
-            <div className="grid gap-[var(--space-8)] lg:grid-cols-[1fr_auto] lg:items-end lg:gap-[var(--space-10)]">
-              <div>
-                <p className="type-eyebrow text-[var(--brand-accent-active)]">{t.finalCta.eyebrow}</p>
-                <h2 className="type-h1 mt-[var(--space-5)] max-w-[11ch]">{t.finalCta.title}</h2>
-                <p className="type-body-large mt-[var(--space-5)] max-w-[38ch] text-[var(--text-inverse)]/65">{t.finalCta.description}</p>
-              </div>
-              <div className="flex flex-col gap-[var(--space-3)] sm:flex-row lg:flex-col lg:items-stretch">
-                <Link href="/booking" className="type-button inline-flex min-h-14 items-center justify-center gap-2 rounded-[var(--radius-control)] bg-[var(--brand-accent-active)] px-[var(--space-7)] text-[var(--surface-inverse)]">
-                  {t.finalCta.actionLabel}
-                  <ArrowRight aria-hidden="true" className="size-4" />
-                </Link>
-                {location.whatsapp ? (
-                  <a href={formatWhatsappHref(location.whatsapp)} target="_blank" rel="noreferrer" className="type-button inline-flex min-h-14 items-center justify-center gap-2 rounded-[var(--radius-control)] border border-[var(--text-inverse)]/25 px-[var(--space-7)]">
-                    {t.finalCta.alternativeLabel}
-                    <span className="sr-only">{t.common.newTabHint}</span>
-                  </a>
-                ) : null}
-              </div>
-            </div>
-          </SectionContainer>
-        </section>
-      </PageContainer>
-
-      <footer id="footer" className="border-t border-[var(--border-subtle)] bg-[var(--background-primary)]">
-        <div className="mx-auto max-w-[var(--container-wide)] px-[var(--page-gutter)] py-[var(--space-9)]">
-          <div className="grid gap-[var(--space-8)] md:grid-cols-2 lg:grid-cols-[1.2fr_.8fr_.8fr_.8fr]">
+function Location() {
+  return (
+    <section className="atelier-section location-section" id="contact">
+      <div className="section-shell location-grid" data-reveal>
+        <div className="location-copy">
+          <Eyebrow>Find Us</Eyebrow>
+          <h2>We’re in the CBD.</h2>
+          <div className="contact-details">
             <div>
-              <div className="flex items-center gap-[var(--space-3)]">
-                <span className="grid size-10 place-items-center border border-[var(--brand-accent)] font-bold text-[var(--brand-accent)]">{brand.shortName}</span>
-                <span className="type-h3">{brand.name}</span>
-              </div>
-              <p className="type-body mt-[var(--space-4)] max-w-sm text-[var(--text-secondary)]">{t.footer.description}</p>
+              <span className="contact-label">Address</span>
+              <p>12 Barber St<br />Melbourne VIC 3000</p>
             </div>
             <div>
-              <p className="type-label">{t.footer.navigationLabel}</p>
-              <ul className="mt-[var(--space-4)] space-y-2">
-                {t.navigation.links.map((link) => (
-                  <li key={link.href}><a className="type-small inline-flex min-h-11 items-center text-[var(--text-secondary)] hover:text-[var(--brand-accent)]" href={link.href}>{link.label}</a></li>
-                ))}
-              </ul>
+              <span className="contact-label">Phone</span>
+              <a href="tel:+61412345678">0412 345 678</a>
             </div>
             <div>
-              <p className="type-label">{t.footer.contactLabel}</p>
-              <div className="mt-[var(--space-4)] space-y-2">
-                <a className="type-small flex min-h-11 items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--brand-accent)]" href={formatPhoneHref(location.phone)}><Phone aria-hidden="true" className="size-4" />{location.phone}</a>
-                {location.whatsapp ? <a className="type-small flex min-h-11 items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--brand-accent)]" href={formatWhatsappHref(location.whatsapp)} target="_blank" rel="noreferrer"><MessageCircle aria-hidden="true" className="size-4" />{t.footer.whatsappLabel}<span className="sr-only">{t.common.newTabHint}</span></a> : null}
-                {brand.socialLinks.instagram ? <a className="type-small flex min-h-11 items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--brand-accent)]" href={brand.socialLinks.instagram} target="_blank" rel="noreferrer"><AtSign aria-hidden="true" className="size-4" />{t.footer.instagramLabel}<span className="sr-only">{t.common.newTabHint}</span></a> : null}
-              </div>
-            </div>
-            <div>
-              <p className="type-label">{t.footer.hoursLabel}</p>
-              <p className="type-small mt-[var(--space-4)] text-[var(--text-secondary)]">{t.footer.hoursSummary}</p>
-              <Link href="/booking" className="type-small mt-[var(--space-4)] inline-flex min-h-11 items-center gap-2 text-[var(--brand-accent)]">{t.navigation.bookingLabel}<ArrowRight aria-hidden="true" className="size-4" /></Link>
+              <span className="contact-label">Hours</span>
+              <p>Mon–Fri 10am–6pm · Sat 10am–4pm · Sun Closed</p>
             </div>
           </div>
-          <div className="mt-[var(--space-9)] flex flex-col gap-[var(--space-4)] border-t border-[var(--border-subtle)] pt-[var(--space-5)] md:flex-row md:items-center md:justify-between">
-            <p className="type-small text-[var(--text-muted)]">© {new Date().getFullYear()} {brand.name}. {t.footer.copyrightSuffix}</p>
-            <div className="flex flex-wrap gap-[var(--space-5)]">
-              {t.footer.policies.map((policy) => (
-                <a key={policy.key} href={policy.href} className="type-small min-h-11 py-3 text-[var(--text-muted)] hover:text-[var(--text-primary)]">{policy.label}</a>
-              ))}
-              <Link href="/style-guide" className="type-small min-h-11 py-3 text-[var(--text-muted)] hover:text-[var(--text-primary)]">{t.footer.styleGuideLabel}</Link>
-              {brand.signature ? (
-                <a href={brand.signature.href} target="_blank" rel="noreferrer" className="type-small inline-flex min-h-11 items-center py-3 text-[var(--text-muted)] hover:text-[var(--brand-accent)]">
-                  {brand.signature.handle}
-                  <span className="sr-only">{t.common.newTabHint}</span>
-                </a>
-              ) : null}
+          <a className="gold-button" href="https://maps.google.com/?q=Melbourne+VIC+3000" target="_blank" rel="noreferrer">
+            Get Directions <ArrowRight size={15} />
+          </a>
+        </div>
+
+        <a
+          className="location-visual"
+          href="https://maps.google.com/?q=Melbourne+VIC+3000"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Open Atelier Barbers in Maps"
+        >
+          <img src={image('8kU6qS7pkNXrrBcNtOdv1qorU', 'scale-down-to=2048')} alt="Barber at work" loading="lazy" />
+          <div className="location-pin"><MapPin size={21} /></div>
+          <div className="location-badge"><strong>Atelier Barbers</strong><span>12 Barber St</span></div>
+        </a>
+      </div>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="atelier-footer">
+      <div className="section-shell footer-top">
+        <div>
+          <strong className="footer-wordmark">ATELIER</strong>
+          <span>Barbers · Melbourne</span>
+        </div>
+        <a href="tel:+61412345678"><Phone size={14} /> 0412 345 678</a>
+      </div>
+      <div className="section-shell footer-bottom">
+        <span>© 2026 Atelier Barbers. All rights reserved.</span>
+        <div>
+          <a href="#top">Home</a>
+          <a href="#services">Services</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+export function LandingPage() {
+  useReveal();
+
+  return (
+    <main className="atelier-site" id="top">
+      <Header />
+
+      <section className="hero-section">
+        <img
+          className="hero-image"
+          src={image('odHeYERnwVXDnc8B02KIbADP4', 'scale-down-to=2048')}
+          alt="Barber giving a precision haircut at Atelier Barbers, Melbourne"
+        />
+        <div className="hero-overlay" aria-hidden="true" />
+        <div className="hero-noise" aria-hidden="true" />
+        <div className="section-shell hero-inner">
+          <div className="hero-copy">
+            <Eyebrow>Premium Barbers · Melbourne</Eyebrow>
+            <h1>ATELIER</h1>
+            <h2>BARBERS</h2>
+            <div className="hero-address"><span />12 Barber St, Melbourne VIC 3000</div>
+            <p className="hero-tagline">Sharp cuts. Clean lines. Walk in, walk out looking your best — every single time.</p>
+            <div className="hero-actions">
+              <a className="gold-button" href="https://maps.google.com/?q=Melbourne+VIC+3000" target="_blank" rel="noreferrer">
+                Get Directions <ArrowRight size={15} />
+              </a>
+              <a className="ghost-button" href="tel:+61412345678">Call Now</a>
             </div>
           </div>
         </div>
-      </footer>
-    </div>
+        <div className="hero-scroll">SCROLL <span /></div>
+      </section>
+
+      <Metrics />
+      <Services />
+      <Experience />
+      <Reviews />
+      <Location />
+      <Footer />
+    </main>
   );
 }
