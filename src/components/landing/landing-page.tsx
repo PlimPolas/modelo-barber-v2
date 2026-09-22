@@ -58,10 +58,9 @@ function useReveal() {
     const nodes = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'));
     if (!nodes.length) return;
 
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isMobile = window.matchMedia('(max-width: 809px)').matches;
-    const staggerStep = isMobile ? 55 : 95;
-    const maxDelay = isMobile ? 220 : 520;
+    const staggerStep = isMobile ? 70 : 100;
+    const maxDelay = isMobile ? 280 : 500;
 
     nodes.forEach((node) => {
       const step = Number(node.dataset.revealDelay ?? 0);
@@ -69,7 +68,9 @@ function useReveal() {
       node.style.setProperty('--reveal-delay', `${delay}ms`);
     });
 
-    if (reduceMotion) {
+    // Never short-circuit the runtime because of prefers-reduced-motion.
+    // CSS owns the reduced-motion variant and only reduces the amount of motion.
+    if (!('IntersectionObserver' in window)) {
       nodes.forEach((node) => node.setAttribute('data-visible', 'true'));
       return;
     }
@@ -77,17 +78,29 @@ function useReveal() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.setAttribute('data-visible', 'true');
-            observer.unobserve(entry.target);
-          }
+          if (!entry.isIntersecting) return;
+
+          (entry.target as HTMLElement).setAttribute('data-visible', 'true');
+          observer.unobserve(entry.target);
         });
       },
-      { threshold: 0.12, rootMargin: '0px 0px -7% 0px' },
+      {
+        root: null,
+        threshold: 0.08,
+        rootMargin: '0px 0px -8% 0px',
+      },
     );
 
-    nodes.forEach((node) => observer.observe(node));
-    return () => observer.disconnect();
+    // Wait one frame so the browser paints the initial hidden/translated state
+    // before an already-visible element is promoted to data-visible=true.
+    const frame = window.requestAnimationFrame(() => {
+      nodes.forEach((node) => observer.observe(node));
+    });
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      observer.disconnect();
+    };
   }, []);
 }
 
