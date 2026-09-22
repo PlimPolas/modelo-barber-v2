@@ -1,10 +1,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { ArrowRight, Check, MapPin, Menu, Phone, X } from 'lucide-react';
+import { ArrowRight, Check, Menu, Phone, X } from 'lucide-react';
 
+import { demoLocation } from '@/data/demo-location';
 import { useI18n, type LanguageCode } from '@/i18n';
 import { LanguageSwitcher } from './language-switcher';
+import { LocationMap } from './location-map';
 import { PricingSection } from './pricing-section';
 import { TeamSection } from './team-section';
 
@@ -14,7 +16,7 @@ const image = (name: string, params = 'scale-down-to=2048') =>
 const copy: Record<LanguageCode, any> = {
   pt: {
     nav: { home: 'Início', services: 'Serviços', about: 'Sobre', contact: 'Contato', call: 'Ligar agora', primary: 'Navegação principal', open: 'Abrir menu', close: 'Fechar menu' },
-    hero: { eyebrow: 'Barbearia premium · Melbourne', address: '12 Barber St, Melbourne VIC 3000', tagline: 'Cortes precisos. Linhas limpas. Entre e saia com o seu melhor visual — sempre.', directions: 'Como chegar', call: 'Ligar agora', scroll: 'Role' },
+    hero: { eyebrow: 'Barbearia premium · Melbourne', tagline: 'Cortes precisos. Linhas limpas. Entre e saia com o seu melhor visual — sempre.', directions: 'Como chegar', call: 'Ligar agora', scroll: 'Role' },
     metrics: [['4.5 ★', 'Avaliação Google'], ['245+', 'Avaliações verificadas'], ['BARBER ST', 'Melbourne CBD'], ['SEM HORA', 'Sempre bem-vindo']],
     services: {
       eyebrow: 'O que fazemos', title: 'Serviços de precisão', subtitle: 'Cada serviço é realizado com foco, técnica e cuidado.',
@@ -23,27 +25,27 @@ const copy: Record<LanguageCode, any> = {
     },
     experience: { eyebrow: 'A experiência', lead: 'Entrar na Atelier Barbers é entrar em uma barbearia no CBD que leva o ofício a sério. Sem pressa, sem atalhos — apenas atendimento focado e resultado consistente.', features: ['Cortes precisos para o formato do seu rosto', 'Atendimento sem agendamento', 'No coração de Melbourne CBD', 'Barbeiros experientes, resultados consistentes'], open: 'Aberto Seg–Sáb', welcome: 'Atendimento sem hora marcada' },
     reviews: { eyebrow: 'O que dizem', title: 'Confiança em Melbourne', google: 'Avaliação Google' },
-    location: { eyebrow: 'Onde estamos', title: 'Estamos no CBD.', address: 'Endereço', phone: 'Telefone', hours: 'Horários', schedule: 'Seg–Sex 10h–18h · Sáb 10h–16h · Dom Fechado', directions: 'Como chegar', map: 'Abrir Atelier Barbers no Maps' },
+    location: { eyebrow: 'Onde estamos', title: 'Estamos no CBD.', address: 'Endereço', phone: 'Telefone', hours: 'Horários', directions: 'Como chegar', map: 'Abrir Atelier Barbers no Maps' },
     footer: { subtitle: 'Barbers · Melbourne', copyright: 'Todos os direitos reservados.' },
   },
   en: {
     nav: { home: 'Home', services: 'Services', about: 'About', contact: 'Contact', call: 'Call Now', primary: 'Primary navigation', open: 'Open menu', close: 'Close menu' },
-    hero: { eyebrow: 'Premium Barbers · Melbourne', address: '12 Barber St, Melbourne VIC 3000', tagline: 'Sharp cuts. Clean lines. Walk in, walk out looking your best — every single time.', directions: 'Get Directions', call: 'Call Now', scroll: 'Scroll' },
+    hero: { eyebrow: 'Premium Barbers · Melbourne', tagline: 'Sharp cuts. Clean lines. Walk in, walk out looking your best — every single time.', directions: 'Get Directions', call: 'Call Now', scroll: 'Scroll' },
     metrics: [['4.5 ★', 'Google Rating'], ['245+', 'Verified Reviews'], ['BARBER ST', 'Melbourne CBD'], ['WALK IN', 'Always Welcome']],
     services: { eyebrow: 'What We Do', title: 'Precision Services', subtitle: 'Every service performed with focus, craft, and care.', items: [['01', 'Haircuts', 'Classic cuts to contemporary styles — sharp, clean, tailored to you.'], ['02', 'Fades', 'Skin, mid, and high fades executed with precision and consistency.'], ['03', 'Beard Trims', 'Line-ups, shaping, and grooming for a crisp, defined finish.'], ['04', 'Styling', 'Wax, clay, pomade — product advice and finish styling included.']], action: 'Enquire' },
     experience: { eyebrow: 'The Experience', lead: 'Walk into Atelier Barbers and you step into a CBD barber shop that takes its craft seriously. No rush, no shortcuts — just focused, expert service that sends you out looking sharp.', features: ['Precision cuts tailored to your face shape', 'Walk-in friendly — no booking required', 'Right in the heart of Melbourne CBD', 'Experienced barbers, consistent results'], open: 'Open Mon-Sat', welcome: 'Walk-ins always welcome' },
     reviews: { eyebrow: 'What People Say', title: 'Trusted by Melbourne', google: 'Google Review' },
-    location: { eyebrow: 'Find Us', title: 'We’re in the CBD.', address: 'Address', phone: 'Phone', hours: 'Hours', schedule: 'Mon–Fri 10am–6pm · Sat 10am–4pm · Sun Closed', directions: 'Get Directions', map: 'Open Atelier Barbers in Maps' },
+    location: { eyebrow: 'Find Us', title: 'We’re in the CBD.', address: 'Address', phone: 'Phone', hours: 'Hours', directions: 'Get Directions', map: 'Open Atelier Barbers in Maps' },
     footer: { subtitle: 'Barbers · Melbourne', copyright: 'All rights reserved.' },
   },
   es: {
     nav: { home: 'Inicio', services: 'Servicios', about: 'Nosotros', contact: 'Contacto', call: 'Llamar ahora', primary: 'Navegación principal', open: 'Abrir menú', close: 'Cerrar menú' },
-    hero: { eyebrow: 'Barbería premium · Melbourne', address: '12 Barber St, Melbourne VIC 3000', tagline: 'Cortes precisos. Líneas limpias. Entra y sal con tu mejor imagen — siempre.', directions: 'Cómo llegar', call: 'Llamar ahora', scroll: 'Desliza' },
+    hero: { eyebrow: 'Barbería premium · Melbourne', tagline: 'Cortes precisos. Líneas limpias. Entra y sal con tu mejor imagen — siempre.', directions: 'Cómo llegar', call: 'Llamar ahora', scroll: 'Desliza' },
     metrics: [['4.5 ★', 'Valoración Google'], ['245+', 'Reseñas verificadas'], ['BARBER ST', 'Melbourne CBD'], ['SIN CITA', 'Siempre bienvenido']],
     services: { eyebrow: 'Lo que hacemos', title: 'Servicios de precisión', subtitle: 'Cada servicio se realiza con enfoque, técnica y cuidado.', items: [['01', 'Cortes', 'Del clásico al contemporáneo — preciso, limpio y hecho para ti.'], ['02', 'Degradados', 'Skin, mid y high fades ejecutados con precisión y consistencia.'], ['03', 'Barba', 'Perfilado, forma y cuidado para un acabado limpio y definido.'], ['04', 'Styling', 'Cera, clay o pomada — asesoría de producto y acabado incluidos.']], action: 'Consultar' },
     experience: { eyebrow: 'La experiencia', lead: 'Entrar en Atelier Barbers es entrar en una barbería del CBD que se toma el oficio en serio. Sin prisas ni atajos — solo atención experta y resultados consistentes.', features: ['Cortes precisos según la forma de tu rostro', 'Sin cita previa', 'En pleno corazón de Melbourne CBD', 'Barberos experimentados, resultados consistentes'], open: 'Abierto Lun–Sáb', welcome: 'Siempre aceptamos clientes sin cita' },
     reviews: { eyebrow: 'Lo que dicen', title: 'La confianza de Melbourne', google: 'Reseña de Google' },
-    location: { eyebrow: 'Encuéntranos', title: 'Estamos en el CBD.', address: 'Dirección', phone: 'Teléfono', hours: 'Horario', schedule: 'Lun–Vie 10–18h · Sáb 10–16h · Dom Cerrado', directions: 'Cómo llegar', map: 'Abrir Atelier Barbers en Maps' },
+    location: { eyebrow: 'Encuéntranos', title: 'Estamos en el CBD.', address: 'Dirección', phone: 'Teléfono', hours: 'Horario', directions: 'Cómo llegar', map: 'Abrir Atelier Barbers en Maps' },
     footer: { subtitle: 'Barbers · Melbourne', copyright: 'Todos los derechos reservados.' },
   },
 };
@@ -91,9 +93,9 @@ function Header() {
     <header className="atelier-header">
       <a className="atelier-brand" href="/" aria-label="Atelier Barbers home"><span className="atelier-brand-main">ATELIER</span><span className="atelier-brand-sub">barbers</span></a>
       <nav className="atelier-nav" aria-label={t.primary}><a href="/">{t.home}</a><a href="/services">{t.services}</a><a href="/about">{t.about}</a><a href="/contact">{t.contact}</a></nav>
-      <div className="header-actions"><LanguageSwitcher /><a className="header-call" href="tel:+61412345678"><span>{t.call}</span><ArrowRight size={15} strokeWidth={1.8} /></a></div>
+      <div className="header-actions"><LanguageSwitcher /><a className="header-call" href={demoLocation.phone.href}><span>{t.call}</span><ArrowRight size={15} strokeWidth={1.8} /></a></div>
       <button className="menu-button" type="button" aria-label={open ? t.close : t.open} aria-expanded={open} onClick={() => setOpen((value) => !value)}>{open ? <X size={22} /> : <Menu size={22} />}</button>
-      <div className={`mobile-menu ${open ? 'is-open' : ''}`}><a href="/" onClick={() => setOpen(false)}>{t.home}</a><a href="/services" onClick={() => setOpen(false)}>{t.services}</a><a href="/about" onClick={() => setOpen(false)}>{t.about}</a><a href="/contact" onClick={() => setOpen(false)}>{t.contact}</a><a href="tel:+61412345678" onClick={() => setOpen(false)}>{t.call}</a></div>
+      <div className={`mobile-menu ${open ? 'is-open' : ''}`}><a href="/" onClick={() => setOpen(false)}>{t.home}</a><a href="/services" onClick={() => setOpen(false)}>{t.services}</a><a href="/about" onClick={() => setOpen(false)}>{t.about}</a><a href="/contact" onClick={() => setOpen(false)}>{t.contact}</a><a href={demoLocation.phone.href} onClick={() => setOpen(false)}>{t.call}</a></div>
     </header>
   );
 }
@@ -128,18 +130,18 @@ function Reviews() {
 function Location() {
   const { language } = useI18n();
   const t = copy[language].location;
-  return <section className="atelier-section location-section" id="contact"><div className="section-shell location-grid"><div className="location-copy"><Eyebrow revealDelay={0}>{t.eyebrow}</Eyebrow><h2 data-reveal="fade-up" data-reveal-delay={1}>{t.title}</h2><div className="contact-details" data-reveal="fade-up" data-reveal-delay={2}><div><span className="contact-label">{t.address}</span><p>12 Barber St<br />Melbourne VIC 3000</p></div><div><span className="contact-label">{t.phone}</span><a href="tel:+61412345678">0412 345 678</a></div><div><span className="contact-label">{t.hours}</span><p>{t.schedule}</p></div></div><div data-reveal="fade-up" data-reveal-delay={3}><a className="gold-button" href="https://maps.google.com/?q=Melbourne+VIC+3000" target="_blank" rel="noreferrer">{t.directions} <ArrowRight size={15} /></a></div></div><a className="location-visual" href="https://maps.google.com/?q=Melbourne+VIC+3000" target="_blank" rel="noreferrer" aria-label={t.map} data-reveal="media" data-reveal-delay={1}><img src={image('8kU6qS7pkNXrrBcNtOdv1qorU', 'scale-down-to=2048')} alt="Barber at work" loading="lazy" /><div className="location-pin"><MapPin size={21} /></div><div className="location-badge"><strong>Atelier Barbers</strong><span>12 Barber St</span></div></a></div></section>;
+  return <section className="atelier-section location-section" id="contact"><div className="section-shell location-grid"><div className="location-copy"><Eyebrow revealDelay={0}>{t.eyebrow}</Eyebrow><h2 data-reveal="fade-up" data-reveal-delay={1}>{t.title}</h2><div className="contact-details" data-reveal="fade-up" data-reveal-delay={2}><div><span className="contact-label">{t.address}</span><p>{demoLocation.address.line1}<br />{demoLocation.address.line2}</p></div><div><span className="contact-label">{t.phone}</span><a href={demoLocation.phone.href}>{demoLocation.phone.display}</a></div><div><span className="contact-label">{t.hours}</span><p>{demoLocation.hours[language]}</p></div></div><div data-reveal="fade-up" data-reveal-delay={3}><a className="gold-button" href={demoLocation.googleMaps.directionsUrl} target="_blank" rel="noreferrer">{t.directions} <ArrowRight size={15} /></a></div></div><LocationMap ariaLabel={t.map} /></div></section>;
 }
 
 function Footer() {
   const { language } = useI18n();
   const t = copy[language];
-  return <footer className="atelier-footer"><div className="section-shell footer-top" data-reveal="fade-up" data-reveal-delay={0}><div><strong className="footer-wordmark">ATELIER</strong><span>{t.footer.subtitle}</span></div><a href="tel:+61412345678"><Phone size={14} /> 0412 345 678</a></div><div className="section-shell footer-bottom" data-reveal="fade-up" data-reveal-delay={1}><span>© 2026 Atelier Barbers. {t.footer.copyright}</span><div><a href="/">{t.nav.home}</a><a href="/services">{t.nav.services}</a><a href="/about">{t.nav.about}</a><a href="/contact">{t.nav.contact}</a></div></div></footer>;
+  return <footer className="atelier-footer"><div className="section-shell footer-top" data-reveal="fade-up" data-reveal-delay={0}><div><strong className="footer-wordmark">ATELIER</strong><span>{t.footer.subtitle}</span></div><a href={demoLocation.phone.href}><Phone size={14} /> {demoLocation.phone.display}</a></div><div className="section-shell footer-bottom" data-reveal="fade-up" data-reveal-delay={1}><span>© 2026 Atelier Barbers. {t.footer.copyright}</span><div><a href="/">{t.nav.home}</a><a href="/services">{t.nav.services}</a><a href="/about">{t.nav.about}</a><a href="/contact">{t.nav.contact}</a></div></div></footer>;
 }
 
 export function LandingPage() {
   useReveal();
   const { language } = useI18n();
   const t = copy[language].hero;
-  return <main className="atelier-site" id="top"><Header /><section className="hero-section"><img className="hero-image" src={image('odHeYERnwVXDnc8B02KIbADP4', 'scale-down-to=2048')} alt="Barber giving a precision haircut at Atelier Barbers, Melbourne" /><div className="hero-overlay" aria-hidden="true" /><div className="hero-noise" aria-hidden="true" /><div className="section-shell hero-inner"><div className="hero-copy"><div className="hero-motion" data-hero-step="0"><Eyebrow>{t.eyebrow}</Eyebrow></div><h1 className="hero-motion" data-hero-step="1">ATELIER</h1><h2 className="hero-motion" data-hero-step="2">BARBERS</h2><div className="hero-address hero-motion" data-hero-step="3"><span />{t.address}</div><p className="hero-tagline hero-motion" data-hero-step="4">{t.tagline}</p><div className="hero-actions hero-motion" data-hero-step="5"><a className="gold-button" href="https://maps.google.com/?q=Melbourne+VIC+3000" target="_blank" rel="noreferrer">{t.directions} <ArrowRight size={15} /></a><a className="ghost-button" href="tel:+61412345678">{t.call}</a></div></div></div><div className="hero-scroll hero-motion" data-hero-step="6">{t.scroll} <span /></div></section><Metrics /><Services /><PricingSection /><TeamSection /><Experience /><Reviews /><Location /><Footer /></main>;
+  return <main className="atelier-site" id="top"><Header /><section className="hero-section"><img className="hero-image" src={image('odHeYERnwVXDnc8B02KIbADP4', 'scale-down-to=2048')} alt="Barber giving a precision haircut at Atelier Barbers, Melbourne" /><div className="hero-overlay" aria-hidden="true" /><div className="hero-noise" aria-hidden="true" /><div className="section-shell hero-inner"><div className="hero-copy"><div className="hero-motion" data-hero-step="0"><Eyebrow>{t.eyebrow}</Eyebrow></div><h1 className="hero-motion" data-hero-step="1">ATELIER</h1><h2 className="hero-motion" data-hero-step="2">BARBERS</h2><div className="hero-address hero-motion" data-hero-step="3"><span />{demoLocation.address.full}</div><p className="hero-tagline hero-motion" data-hero-step="4">{t.tagline}</p><div className="hero-actions hero-motion" data-hero-step="5"><a className="gold-button" href={demoLocation.googleMaps.directionsUrl} target="_blank" rel="noreferrer">{t.directions} <ArrowRight size={15} /></a><a className="ghost-button" href={demoLocation.phone.href}>{t.call}</a></div></div></div><div className="hero-scroll hero-motion" data-hero-step="6">{t.scroll} <span /></div></section><Metrics /><Services /><PricingSection /><TeamSection /><Experience /><Reviews /><Location /><Footer /></main>;
 }
