@@ -150,8 +150,9 @@ export function TeamSection() {
                   <BarberCard
                     barber={barber}
                     media={resolveMedia(barber.primaryMediaId)}
-                    actionPrefix="Agendar com"
+                    actionPrefix="Falar com"
                     specialtiesLabel="Especialidades de"
+                    actionHref="/contact"
                   />
                 </div>
               );
