@@ -1208,6 +1208,11 @@ img {
     white-space: nowrap;
   }
 
+  .gold-button,
+  .ghost-button {
+    width: 100%;
+  }
+
   .hero-marquee-group {
     padding-block: 14px;
   }
