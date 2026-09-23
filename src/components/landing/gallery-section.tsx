@@ -216,10 +216,6 @@ export function GallerySection() {
           ))}
         </div>
 
-        <a className="gallery-cta ghost-button" href="/services" data-reveal="fade-up" data-reveal-delay={5}>
-          {t.cta} <ArrowRight size={17} strokeWidth={1.6} />
-        </a>
-
         <div className="gallery-footer-decoration" aria-hidden="true">
           <strong>BARBER<br />SHOP</strong>
           <p>{t.quote}<span /></p>
