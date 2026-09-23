@@ -51,7 +51,7 @@ const copy: Record<LanguageCode, any> = {
   },
 };
 
-const serviceImages = ['/images/services/cortes.webp', '/images/services/degrades.webp', '/images/services/barba.webp', '/images/services/finalizacao.webp'];
+const serviceImages = ['/images/services/cortes.png', '/images/services/degrades.png', '/images/services/barba.png', '/images/services/finalizacao.png'];
 
 const reviews = [
   { quote: 'Best barbershop in the area. Skilled team with great attention to detail and top-notch service. The prices are fair for the quality you get — I wouldn’t go anywhere else.', name: 'James R.' },
