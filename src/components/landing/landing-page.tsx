@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { ArrowRight, Check, Menu, Phone, X } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, Menu, Phone, X } from 'lucide-react';
 
 import { demoLocation } from '@/data/demo-location';
 import { heroConfig } from '@/data/hero';
@@ -130,15 +130,89 @@ function Services() {
   const { language } = useI18n();
   const t = copy[language].services;
   const [activeService, setActiveService] = useState(0);
+  const totalServices = t.items.length;
 
   useEffect(() => {
     const timer = window.setInterval(() => {
-      setActiveService((current) => (current + 1) % t.items.length);
+      setActiveService((current) => (current + 1) % totalServices);
     }, 1500);
     return () => window.clearInterval(timer);
-  }, [t.items.length]);
+  }, [totalServices]);
 
-  return <section className="atelier-section services-section" id="services"><div className="section-shell"><div className="section-heading centered"><Eyebrow centered revealDelay={0}>{t.eyebrow}</Eyebrow><h2 data-reveal="fade-up" data-reveal-delay={1}>{t.title}</h2><p data-reveal="fade-up" data-reveal-delay={2}>{t.subtitle}</p></div><div className="services-grid">{t.items.map(([number, title, body]: string[], index: number) => <a className={`service-card ${activeService === index ? 'is-active' : 'is-muted'}`} href="/contact" key={number} data-reveal="card" data-reveal-delay={index} aria-current={activeService === index ? 'true' : undefined}><img src={serviceImages[index]} alt={`${title} at Atelier Barbers`} loading="lazy" /><span className="service-shade" aria-hidden="true" /><span className="service-number">{number}</span><div className="service-copy"><h3>{title}</h3><p>{body}</p><span className="service-link">{t.action} <ArrowRight size={14} /></span></div></a>)}</div></div></section>;
+  const goPrevious = () => {
+    setActiveService((current) => (current - 1 + totalServices) % totalServices);
+  };
+
+  const goNext = () => {
+    setActiveService((current) => (current + 1) % totalServices);
+  };
+
+  const navigationLabel =
+    language === 'en' ? 'Service navigation' : language === 'es' ? 'Navegación de servicios' : 'Navegação de serviços';
+  const previousLabel =
+    language === 'en' ? 'Previous service' : language === 'es' ? 'Servicio anterior' : 'Serviço anterior';
+  const nextLabel =
+    language === 'en' ? 'Next service' : language === 'es' ? 'Siguiente servicio' : 'Próximo serviço';
+
+  return (
+    <section className="atelier-section services-section" id="services">
+      <div className="section-shell services-shell">
+        <div className="section-heading centered services-heading">
+          <Eyebrow centered revealDelay={0}>{t.eyebrow}</Eyebrow>
+          <h2 data-reveal="fade-up" data-reveal-delay={1}>{t.title}</h2>
+          <p data-reveal="fade-up" data-reveal-delay={2}>{t.subtitle}</p>
+        </div>
+
+        <div className="services-grid">
+          {t.items.map(([number, title, body]: string[], index: number) => {
+            const isActive = activeService === index;
+            return (
+              <a
+                className={`service-card ${isActive ? 'is-active' : 'is-muted'}`}
+                href="/contact"
+                key={number}
+                data-reveal="card"
+                data-reveal-delay={index}
+                aria-current={isActive ? 'true' : undefined}
+              >
+                <img src={serviceImages[index]} alt={`${title} at Atelier Barbers`} loading="lazy" />
+                <span className="service-shade" aria-hidden="true" />
+                <span className="service-number">{number}</span>
+                <div className="service-copy">
+                  <h3>{title}</h3>
+                  <p>{body}</p>
+                  <span className="service-link">{t.action} <ArrowRight size={15} /></span>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+
+        <div className="services-navigation" aria-label={navigationLabel}>
+          <div className="services-navigation-left">
+            <div className="services-arrow-group">
+              <button className="services-arrow" type="button" aria-label={previousLabel} onClick={goPrevious}>
+                <ArrowLeft size={19} strokeWidth={1.5} />
+              </button>
+              <button className="services-arrow is-primary" type="button" aria-label={nextLabel} onClick={goNext}>
+                <ArrowRight size={19} strokeWidth={1.5} />
+              </button>
+            </div>
+            <div className="services-pagination" aria-hidden="true">
+              {t.items.map((_: string[], index: number) => (
+                <span className={index === activeService ? 'is-active' : ''} key={index} />
+              ))}
+            </div>
+          </div>
+          <div className="services-counter" aria-live="polite">
+            <span>{String(activeService + 1).padStart(2, '0')}</span>
+            <i>/</i>
+            <span>{String(totalServices).padStart(2, '0')}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }
 
 function Experience() {
