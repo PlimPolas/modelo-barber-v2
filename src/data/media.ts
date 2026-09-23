@@ -47,10 +47,10 @@ export const media: MediaAsset[] = [
     active: true,
   },
   {
-    id: 'media-barber-caio', src: '/images/barber-caio.webp', alt: 'Retrato editorial de barbeiro com navalha', mimeType: 'image/webp', width: 1000, height: 1000, aspectRatio: 1, focalPointMobile: { x: 50, y: 30 }, focalPointTablet: { x: 50, y: 30 }, focalPointDesktop: { x: 50, y: 30 }, treatment: 'editorial-neutral', rights: 'Asset demonstrativo fornecido pelo usuário', active: true,
+    id: 'media-barber-caio', src: '/images/team/vinicius-martins.jpeg', alt: 'Vinicius Martins', mimeType: 'image/jpeg', width: 1170, height: 1170, aspectRatio: 1, focalPointMobile: { x: 50, y: 30 }, focalPointTablet: { x: 50, y: 30 }, focalPointDesktop: { x: 50, y: 30 }, treatment: 'editorial-neutral', rights: 'Foto fornecida pelo usuário', active: true,
   },
   {
-    id: 'media-barber-lia', src: '/images/barber-lia.webp', alt: 'Retrato editorial de barbeira com tesoura', mimeType: 'image/webp', width: 1000, height: 1000, aspectRatio: 1, focalPointMobile: { x: 50, y: 30 }, focalPointTablet: { x: 50, y: 30 }, focalPointDesktop: { x: 50, y: 30 }, treatment: 'editorial-neutral', rights: 'Asset demonstrativo fornecido pelo usuário', active: true,
+    id: 'media-barber-lia', src: '/images/team/gabriel-mattos.jpeg', alt: 'Gabriel Mattos', mimeType: 'image/jpeg', width: 1170, height: 1560, aspectRatio: 0.75, focalPointMobile: { x: 50, y: 30 }, focalPointTablet: { x: 50, y: 30 }, focalPointDesktop: { x: 50, y: 30 }, treatment: 'editorial-neutral', rights: 'Foto fornecida pelo usuário', active: true,
   },
   {
     id: 'media-barber-ravi', src: '/images/barber-ravi.webp', alt: 'Retrato editorial de barbeiro com tesoura', mimeType: 'image/webp', width: 1000, height: 692, aspectRatio: 1.445, focalPointMobile: { x: 50, y: 28 }, focalPointTablet: { x: 50, y: 28 }, focalPointDesktop: { x: 50, y: 28 }, treatment: 'editorial-neutral', rights: 'Asset demonstrativo fornecido pelo usuário', active: true,

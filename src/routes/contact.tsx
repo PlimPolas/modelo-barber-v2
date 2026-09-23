@@ -5,10 +5,10 @@ import { ContactPage } from "@/components/landing/inner-pages";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — Atelier Barbers" },
+      { title: "Contact — Golden Hands" },
       {
         name: "description",
-        content: "Visit Atelier Barbers in Melbourne CBD. Walk-ins welcome.",
+        content: "Visit Golden Hands in Lisboa. Agendamento online disponível.",
       },
     ],
   }),

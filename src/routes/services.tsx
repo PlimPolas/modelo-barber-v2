@@ -5,10 +5,10 @@ import { ServicesPage } from "@/components/landing/inner-pages";
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: "Services — Atelier Barbers" },
+      { title: "Services — Golden Hands" },
       {
         name: "description",
-        content: "Classic haircuts, fades, beard trims and styling at Atelier Barbers.",
+        content: "Classic haircuts, fades, beard trims and styling at Golden Hands.",
       },
     ],
   }),

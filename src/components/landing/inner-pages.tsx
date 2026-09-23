@@ -5,6 +5,7 @@ import { ArrowRight, Menu, X } from 'lucide-react';
 
 import { useI18n, type LanguageCode } from '@/i18n';
 import { LanguageSwitcher } from './language-switcher';
+import { demoLocation } from '@/data/demo-location';
 import './inner-pages.css';
 
 const image = (name: string, params = 'scale-down-to=2048') =>
@@ -29,18 +30,18 @@ function InnerHeader({ current }: { current: PageKey }) {
   const { t, navigation } = useNavigation();
   return (
     <header className="inner-header">
-      <a className="inner-brand" href="/"><strong>ATELIER</strong><em>barbers</em></a>
+      <a className="inner-brand" href="/"><img className="golden-hands-logo" src="/images/golden-hands-logo.jpeg" alt="Golden Hands Barbershop" /></a>
       <nav className="inner-nav" aria-label={t.primary}>
         {navigation.map(([label, href]) => <a key={href} href={href} aria-current={href === `/${current}` ? 'page' : undefined}>{label}</a>)}
       </nav>
       <div className="inner-header-actions">
         <LanguageSwitcher />
-        <a className="inner-call" href="tel:+61412345678">{t.call} <ArrowRight size={14} /></a>
+        <a className="inner-call" href="tel:+351217931653">{t.call} <ArrowRight size={14} /></a>
       </div>
       <button className="inner-menu-button" type="button" aria-label={open ? t.close : t.open} onClick={() => setOpen((value) => !value)}>{open ? <X size={22} /> : <Menu size={22} />}</button>
       <div className={`inner-mobile-menu ${open ? 'open' : ''}`}>
         {navigation.map(([label, href]) => <a key={href} href={href} onClick={() => setOpen(false)}>{label}</a>)}
-        <a href="tel:+61412345678" onClick={() => setOpen(false)}>{t.call}</a>
+        <a href="tel:+351217931653" onClick={() => setOpen(false)}>{t.call}</a>
       </div>
     </header>
   );
@@ -48,8 +49,8 @@ function InnerHeader({ current }: { current: PageKey }) {
 
 function InnerMetrics() {
   const { language } = useI18n();
-  const labels = language === 'pt' ? ['Avaliação Google', 'Avaliações verificadas', 'Melbourne CBD', 'Bem-vindo'] : language === 'es' ? ['Valoración Google', 'Reseñas verificadas', 'Melbourne CBD', 'Bienvenido'] : ['Google Rating', 'Verified Reviews', 'Melbourne CBD', 'Welcome'];
-  const items = [['4.5 ★', labels[0]], ['245+', labels[1]], ['BARBER ST', labels[2]], [language === 'en' ? 'WALK IN' : language === 'pt' ? 'SEM HORA' : 'SIN CITA', labels[3]]];
+  const labels = language === 'pt' ? ['Portugal', 'Av. João XXI', 'Seg–Sex', 'Encerrado'] : language === 'es' ? ['Portugal', 'Av. João XXI', 'Lun–Vie', 'Cerrado'] : ['Portugal', 'João XXI Ave.', 'Mon–Fri', 'Closed'];
+  const items = [['LISBOA', labels[0]], ['72B', labels[1]], ['10h–20h', labels[2]], ['DOM', labels[3]]];
   return <section className="inner-metrics"><div className="section-shell inner-metrics-grid">{items.map(([value, label]) => <div className="inner-metric" key={label}><strong>{value}</strong><span>{label}</span></div>)}</div></section>;
 }
 
@@ -57,24 +58,24 @@ function InnerFooter() {
   const { t, navigation } = useNavigation();
   return (
     <footer className="inner-footer">
-      <div className="section-shell inner-footer-main"><div><strong>ATELIER</strong><span>Barbers · Melbourne</span></div><a href="tel:+61412345678">0412 345 678</a></div>
-      <div className="section-shell inner-footer-bottom"><span>© 2026 Atelier Barbers. {t.copyright}</span><div className="inner-footer-links">{navigation.map(([label, href]) => <a key={href} href={href}>{label}</a>)}</div></div>
+      <div className="section-shell inner-footer-main"><div><strong><img className="golden-hands-logo" src="/images/golden-hands-logo.jpeg" alt="Golden Hands Barbershop" /></strong><span>Barbers · Lisboa</span></div><a href="tel:+351217931653">+351 217 931 653</a></div>
+      <div className="section-shell inner-footer-bottom"><span>© 2026 Golden Hands. {t.copyright}</span><div className="inner-footer-links">{navigation.map(([label, href]) => <a key={href} href={href}>{label}</a>)}</div></div>
     </footer>
   );
 }
 
 function InnerHero({ eyebrow, title, description, src }: { eyebrow: string; title: string; description: string; src: string }) {
-  return <section className="inner-hero"><img src={src} alt="Atelier Barbers" /><div className="inner-hero-copy"><div className="inner-kicker">{eyebrow}</div><h1>{title}</h1><p>{description}</p></div></section>;
+  return <section className="inner-hero"><img src={src} alt="Imagem ilustrativa de barbearia" /><div className="inner-hero-copy"><div className="inner-kicker">{eyebrow}</div><h1>{title}</h1><p>{description}</p></div></section>;
 }
 
 export function AboutPage() {
   return (
     <main className="inner-site">
       <InnerHeader current="about" />
-      <InnerHero eyebrow="Our Story" title="Our Craft. Our Shop." description="Melbourne’s favourite barbershop, since day one." src={image('odHeYERnwVXDnc8B02KIbADP4')} />
-      <section className="inner-section"><div className="section-shell inner-grid-2"><div className="inner-copy"><div className="inner-kicker">Our Philosophy</div><h2>Precision Over Everything</h2><p>Smart Cuts is a professional barbershop in the heart of Melbourne CBD. We believe a great haircut is one of the simplest ways a man can feel his best — and we take that seriously.</p><p>Walk-in friendly and open Mon–Sat, we serve Melbourne professionals, students, and locals who demand consistency. No booking stress. Just show up.</p><div className="inner-note">Rated 4.5 stars across 245+ Google reviews</div></div><div className="inner-image-frame"><img src={image('1b4YIzAnOouRo2k0mAp3rCFB5Q')} alt="Barber at Atelier Barbers" loading="lazy" /></div></div></section>
-      <section className="inner-section alt"><div className="section-shell"><div className="inner-centered"><div className="inner-kicker">What We Stand For</div><h2>Built around the details.</h2></div><div className="values-grid">{[['01', 'Precision', 'Every line, every fade, every detail checked before you leave the chair.'], ['02', 'Craft', 'Years of technique behind every session. Scissors, clippers — we know them both.'], ['03', 'Convenience', 'Walk in anytime. No appointment needed. Open across the week in Melbourne CBD.']].map(([number, title, body]) => <article className="value-card" key={number}><span>{number}</span><h3>{title}</h3><p>{body}</p></article>)}</div></div></section>
-      <section className="inner-section"><div className="section-shell contact-layout"><div className="inner-copy"><div className="inner-kicker">Find Us</div><h2>12 Barber St, Melbourne VIC 3000</h2><p>Mon–Fri 10am–6pm · Sat 10am–4pm · Sun Closed</p><a className="gold-button" href="https://maps.google.com/?q=Melbourne+VIC+3000" target="_blank" rel="noreferrer">Get Directions <ArrowRight size={14} /></a></div><a className="inner-map" href="https://maps.google.com/?q=Melbourne+VIC+3000" target="_blank" rel="noreferrer"><img src={image('8kU6qS7pkNXrrBcNtOdv1qorU')} alt="Atelier Barbers" loading="lazy" /><div className="map-card"><strong>Atelier Barbers</strong><span>Melbourne CBD</span></div></a></div></section>
+      <InnerHero eyebrow="Golden Hands" title="Sobre a barbearia" description="Cortes, barba e cuidados masculinos em Lisboa." src={image('odHeYERnwVXDnc8B02KIbADP4')} />
+      <section className="inner-section"><div className="section-shell inner-grid-2"><div className="inner-copy"><div className="inner-kicker">Golden Hands</div><h2>Na Galeria Via Veneto</h2><p>A Golden Hands oferece cortes de cabelo, serviços de barba e cuidados masculinos em Lisboa.</p><p>Entre os serviços estão coloração masculina, hidratação capilar e cuidados faciais.</p><div className="inner-note">Marcação online disponível</div></div><div className="inner-image-frame"><img src={image('1b4YIzAnOouRo2k0mAp3rCFB5Q')} alt="Barbeiro em imagem ilustrativa" loading="lazy" /></div></div></section>
+      <section className="inner-section alt"><div className="section-shell"><div className="inner-centered"><div className="inner-kicker">Serviços</div><h2>Corte, barba e cuidado.</h2></div><div className="values-grid">{[['01', 'Cortes', 'Cortes de cabelo e diferentes opções de acabamento.'], ['02', 'Barba', 'Barba alinhada, desenhada, aparada ou removida.'], ['03', 'Cuidados', 'Hidratação capilar, coloração masculina e cuidados faciais.']].map(([number, title, body]) => <article className="value-card" key={number}><span>{number}</span><h3>{title}</h3><p>{body}</p></article>)}</div></div></section>
+      <section className="inner-section"><div className="section-shell contact-layout"><div className="inner-copy"><div className="inner-kicker">Onde estamos</div><h2>{demoLocation.address.full}</h2><p>{demoLocation.hours.pt}</p><a className="gold-button" href={demoLocation.googleMaps.directionsUrl} target="_blank" rel="noreferrer">Como chegar <ArrowRight size={14} /></a></div><a className="inner-map" href={demoLocation.googleMaps.directionsUrl} target="_blank" rel="noreferrer"><img src={image('8kU6qS7pkNXrrBcNtOdv1qorU')} alt="Golden Hands" loading="lazy" /><div className="map-card"><strong>Golden Hands</strong><span>Av. João XXI 72B, Lisboa</span></div></a></div></section>
       <InnerMetrics /><InnerFooter />
     </main>
   );
@@ -82,15 +83,15 @@ export function AboutPage() {
 
 export function ServicesPage() {
   const cards = [
-    { price: 'From $45', title: 'Classic Haircuts', body: 'Precision scissor and clipper work tailored to your face shape and lifestyle. From textured crops to timeless side-parts — we deliver consistent, sharp results every time.', expect: 'Consultation, wash, cut, style, finish.', src: image('N2WiUItXHzq3pVso0NMy3nJfbw') },
-    { price: 'From $50', title: 'Fades & Tapers', body: 'Skin fades, mid fades, high fades — our barbers blend with zero room for error. Clean lines, smooth gradients, and perfect shape retention.', expect: 'Fade consultation, precision clipper work, edge lineup.', src: image('8kU6qS7pkNXrrBcNtOdv1qorU') },
-    { price: 'From $30', title: 'Beard Trims & Shaping', body: 'Sculpted necklines, defined cheek lines, and full beard shaping. Whether you want to grow it out or keep it clean — we maintain the shape you want.', expect: 'Beard consultation, trim, shape, hot towel, balm finish.', src: image('L7O72RaIUlKcUL0Ee0w8GWHWTdw') },
-    { price: 'From $25', title: 'Style & Finish', body: 'Product consultation and styling to lock in your look. Walk out with confidence — from matte clay definition to slick pomade shine.', expect: 'Style consultation, product application, finish review.', src: image('KKaVDUSPNEebhUYqUAQHmKgYM') },
+    { price: '17 €', title: 'Corte & Style', body: 'Corte e lavagem opcional.', expect: '50 min', src: image('N2WiUItXHzq3pVso0NMy3nJfbw') },
+    { price: '22 €', title: 'Corte & Style + Barba', body: 'Corte com barba alinhada, desenhada, aparada ou removida.', expect: '60 min', src: image('8kU6qS7pkNXrrBcNtOdv1qorU') },
+    { price: '8 €', title: 'Barba', body: 'Barba alinhada, desenhada, aparada ou removida.', expect: '20 min', src: image('L7O72RaIUlKcUL0Ee0w8GWHWTdw') },
+    { price: '13 €', title: 'Barba com toalha quente', body: 'Serviço de barba com toalha quente.', expect: '30 min', src: image('KKaVDUSPNEebhUYqUAQHmKgYM') },
   ];
   return (
     <main className="inner-site">
-      <InnerHeader current="services" /><InnerHero eyebrow="What We Do" title="Precision Services" description="Every cut a statement. Every visit an experience." src={image('PaN26fmUFDFXpMRknfRImO1iv0')} />
-      <section className="inner-section"><div className="section-shell"><div className="price-list">{cards.map((card) => <article className="price-card" key={card.title}><div className="price-image"><img src={card.src} alt={card.title} loading="lazy" /></div><div className="price-copy"><span className="price">{card.price}</span><h3>{card.title}</h3><p>{card.body}</p><p className="expect"><strong>What to expect:</strong> {card.expect}</p><a href="/contact">Call to Enquire <ArrowRight size={14} /></a></div></article>)}</div></div></section>
+      <InnerHeader current="services" /><InnerHero eyebrow="Serviços" title="Serviços Golden Hands" description="Cortes, barba e cuidados masculinos." src={image('PaN26fmUFDFXpMRknfRImO1iv0')} />
+      <section className="inner-section"><div className="section-shell"><div className="price-list">{cards.map((card) => <article className="price-card" key={card.title}><div className="price-image"><img src={card.src} alt={card.title} loading="lazy" /></div><div className="price-copy"><span className="price">{card.price}</span><h3>{card.title}</h3><p>{card.body}</p><p className="expect"><strong>Duração:</strong> {card.expect}</p><a href={demoLocation.phone.href}>Ligar para consultar <ArrowRight size={14} /></a></div></article>)}</div></div></section>
       <InnerMetrics /><InnerFooter />
     </main>
   );
@@ -99,8 +100,8 @@ export function ServicesPage() {
 export function ContactPage() {
   return (
     <main className="inner-site">
-      <InnerHeader current="contact" /><InnerHero eyebrow="Get In Touch" title="Come Visit Us" description="Walk-ins always welcome. No appointment needed." src={image('1b4YIzAnOouRo2k0mAp3rCFB5Q')} />
-      <section className="inner-section"><div className="section-shell contact-layout"><div className="inner-copy"><div className="inner-kicker">Atelier Barbers</div><h2>Right in the heart of Melbourne.</h2><div className="contact-blocks"><div className="contact-block"><span>Address</span><p>12 Barber St<br />Melbourne VIC 3000</p></div><div className="contact-block"><span>Phone</span><a href="tel:+61412345678">0412 345 678</a><small>Call or text to book an appointment</small></div><div className="contact-block"><span>Hours</span><p>Monday–Friday · 10:00am–6:00pm<br />Saturday · 10:00am–4:00pm<br />Sunday · Closed</p></div></div><a className="gold-button" href="https://maps.google.com/?q=Melbourne+VIC+3000" target="_blank" rel="noreferrer">Get Directions <ArrowRight size={14} /></a><div className="inner-note">Walk-ins always welcome — no appointment needed.</div></div><a className="inner-map" href="https://maps.google.com/?q=Melbourne+VIC+3000" target="_blank" rel="noreferrer"><img src={image('odHeYERnwVXDnc8B02KIbADP4')} alt="Atelier Barbers Melbourne" loading="lazy" /><div className="map-card"><strong>Atelier Barbers</strong><span>12 Barber St, Melbourne CBD</span></div></a></div></section>
+      <InnerHeader current="contact" /><InnerHero eyebrow="Contato" title="Visite a Golden Hands" description="Galeria Via Veneto, Lisboa." src={image('1b4YIzAnOouRo2k0mAp3rCFB5Q')} />
+      <section className="inner-section"><div className="section-shell contact-layout"><div className="inner-copy"><div className="inner-kicker">Golden Hands</div><h2>Na Av. João XXI, em Lisboa.</h2><div className="contact-blocks"><div className="contact-block"><span>Endereço</span><p>{demoLocation.address.line1}<br />{demoLocation.address.line2}</p></div><div className="contact-block"><span>Telefone</span><a href="tel:+351217931653">+351 217 931 653</a><small>Telefone de contato</small></div><div className="contact-block"><span>Horários</span><p>{demoLocation.hours.pt}</p></div></div><a className="gold-button" href={demoLocation.googleMaps.directionsUrl} target="_blank" rel="noreferrer">Como chegar <ArrowRight size={14} /></a><div className="inner-note">Sábado: horário a confirmar.</div></div><a className="inner-map" href={demoLocation.googleMaps.directionsUrl} target="_blank" rel="noreferrer"><img src={image('odHeYERnwVXDnc8B02KIbADP4')} alt="Imagem ilustrativa de barbearia" loading="lazy" /><div className="map-card"><strong>Golden Hands</strong><span>Av. João XXI 72B, Lisboa</span></div></a></div></section>
       <InnerMetrics /><InnerFooter />
     </main>
   );

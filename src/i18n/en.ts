@@ -150,16 +150,8 @@ export const en: Dictionary = {
     },
   },
   barbers_by_id: {
-    'barber-caio': {
-      role: 'Senior barber',
-      shortBio: 'Specialist in classic cuts and beard shaping.',
-      specialties: ['classic cuts', 'beard'],
-    },
-    'barber-lia': {
-      role: 'Barber and style advisor',
-      shortBio: '-------------',
-      specialties: ['face shape styling', 'contemporary cuts'],
-    },
+    'barber-caio': { role: 'Barbeiro', shortBio: '', specialties: [] },
+    'barber-lia': { role: 'Barbeiro', shortBio: '', specialties: [] },
     'barber-ravi': {
       role: 'Barber',
       shortBio: '-------------',

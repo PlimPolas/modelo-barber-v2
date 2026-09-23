@@ -216,3 +216,5 @@
     animation-duration: 300ms !important;
   }
 }
+
+.brand-preloader__logo { display: block; width: 100%; height: auto; max-height: 95px; object-fit: contain; }

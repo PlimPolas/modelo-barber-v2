@@ -150,16 +150,8 @@ export const es: Dictionary = {
     },
   },
   barbers_by_id: {
-    'barber-caio': {
-      role: 'Barbero sénior',
-      shortBio: 'Especialista en cortes clásicos y diseño de barba.',
-      specialties: ['cortes clásicos', 'barba'],
-    },
-    'barber-lia': {
-      role: 'Barbera y asesora de imagen',
-      shortBio: '-------------',
-      specialties: ['visagismo', 'cortes contemporáneos'],
-    },
+    'barber-caio': { role: 'Barbeiro', shortBio: '', specialties: [] },
+    'barber-lia': { role: 'Barbeiro', shortBio: '', specialties: [] },
     'barber-ravi': {
       role: 'Barbero',
       shortBio: '-------------',

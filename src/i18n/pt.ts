@@ -152,16 +152,8 @@ export const pt = {
     },
   },
   barbers_by_id: {
-    'barber-caio': {
-      role: 'Barbeiro sênior',
-      shortBio: 'Especialista em cortes clássicos e desenho de barba.',
-      specialties: ['cortes clássicos', 'barba'],
-    },
-    'barber-lia': {
-      role: 'Barbeira e visagista',
-      shortBio: '-------------',
-      specialties: ['visagismo', 'cortes contemporâneos'],
-    },
+    'barber-caio': { role: 'Barbeiro', shortBio: '', specialties: [] },
+    'barber-lia': { role: 'Barbeiro', shortBio: '', specialties: [] },
     'barber-ravi': {
       role: 'Barbeiro',
       shortBio: '-------------',

@@ -5,16 +5,16 @@ import { LandingPage } from "@/components/landing/landing-page";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Atelier Barbers — Premium Barbershop" },
+      { title: "Golden Hands — Premium Barbershop" },
       {
         name: "description",
         content:
-          "Walk in. Look great. Atelier Barbers offers precision cuts, classic shaves, and grooming services for the modern gentleman.",
+          "Cortes, barba e cuidados masculinos em Lisboa. Golden Hands offers precision cuts, classic shaves, and grooming services for the modern gentleman.",
       },
-      { property: "og:title", content: "Atelier Barbers — Premium Barbershop" },
+      { property: "og:title", content: "Golden Hands — Premium Barbershop" },
       {
         property: "og:description",
-        content: "Precision cuts, classic shaves and grooming in Melbourne CBD.",
+        content: "Precision cuts, classic shaves and grooming in Lisboa.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

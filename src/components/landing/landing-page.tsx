@@ -18,45 +18,44 @@ const copy: Record<LanguageCode, any> = {
   pt: {
     nav: { home: 'Início', services: 'Serviços', about: 'Sobre', contact: 'Contato', call: 'Ligar agora', primary: 'Navegação principal', open: 'Abrir menu', close: 'Fechar menu' },
     hero: { eyebrow: 'Barbearia premium · Melbourne', tagline: 'Cortes precisos. Linhas limpas. Entre e saia com o seu melhor visual — sempre.', directions: 'Como chegar', call: 'Ligar agora', scroll: 'Role' },
-    metrics: [['4.5 ★', 'Avaliação Google'], ['245+', 'Avaliações verificadas'], ['BARBER ST', 'Melbourne CBD'], ['SEM HORA', 'Sempre bem-vindo']],
+    metrics: [['LISBOA', 'Portugal'], ['JOÃO XXI', 'Av. 72B'], ['SEG–SEX', '10h–20h'], ['DOMINGO', 'Encerrado']],
     services: {
-      eyebrow: 'O que fazemos', title: 'Serviços de precisão', subtitle: 'Cada serviço é realizado com foco, técnica e cuidado.',
-      items: [['01', 'Cortes', 'Do clássico ao contemporâneo — preciso, limpo e feito para você.'], ['02', 'Degradês', 'Skin, mid e high fades executados com precisão e consistência.'], ['03', 'Barba', 'Contorno, desenho e acabamento para um resultado definido.'], ['04', 'Finalização', 'Cera, clay ou pomada — orientação de produto e styling incluídos.']],
+      eyebrow: 'O que fazemos', title: 'Serviços Golden Hands', subtitle: 'Cada serviço é realizado com foco, técnica e cuidado.',
+      items: [['01', 'Cortes', 'Corte & Style, com lavagem opcional.'], ['02', 'Degradês', 'Cortes com diferentes opções de acabamento.'], ['03', 'Barba', 'Barba alinhada, desenhada, aparada ou removida.'], ['04', 'Finalização', 'Hidratação capilar e cuidados complementares.']],
       action: 'Consultar',
     },
-    experience: { eyebrow: 'A experiência', lead: 'Entrar na Atelier Barbers é entrar em uma barbearia no CBD que leva o ofício a sério. Sem pressa, sem atalhos — apenas atendimento focado e resultado consistente.', features: ['Cortes precisos para o formato do seu rosto', 'Atendimento sem agendamento', 'No coração de Melbourne CBD', 'Barbeiros experientes, resultados consistentes'], open: 'Aberto Seg–Sáb', welcome: 'Atendimento sem hora marcada' },
-    reviews: { eyebrow: 'O que dizem', title: 'Confiança em Melbourne', google: 'Avaliação Google' },
-    location: { eyebrow: 'Onde estamos', title: 'Estamos no CBD.', address: 'Endereço', phone: 'Telefone', hours: 'Horários', directions: 'Como chegar', map: 'Abrir Atelier Barbers no Maps' },
-    footer: { subtitle: 'Barbers · Melbourne', copyright: 'Todos os direitos reservados.' },
+    experience: { eyebrow: 'A experiência', lead: 'Na Galeria Via Veneto, a Golden Hands reúne cortes, barba e cuidados masculinos em Lisboa.', features: ['Cortes de cabelo e barba', 'Coloração masculina', 'Limpeza de pele e cuidados faciais', 'Marcação online disponível'], open: 'Seg–Sex 10h–20h', welcome: 'Sábado: horário a confirmar' },
+    reviews: { eyebrow: 'O que dizem', title: 'Avaliações de clientes', google: 'Avaliação Google' },
+    location: { eyebrow: 'Onde estamos', title: 'Em Lisboa.', address: 'Endereço', phone: 'Telefone', hours: 'Horários', directions: 'Como chegar', map: 'Abrir Golden Hands no Maps' },
+    footer: { subtitle: 'Barbers · Lisboa', copyright: 'Todos os direitos reservados.' },
   },
   en: {
     nav: { home: 'Home', services: 'Services', about: 'About', contact: 'Contact', call: 'Call Now', primary: 'Primary navigation', open: 'Open menu', close: 'Close menu' },
     hero: { eyebrow: 'Premium Barbers · Melbourne', tagline: 'Sharp cuts. Clean lines. Walk in, walk out looking your best — every single time.', directions: 'Get Directions', call: 'Call Now', scroll: 'Scroll' },
-    metrics: [['4.5 ★', 'Google Rating'], ['245+', 'Verified Reviews'], ['BARBER ST', 'Melbourne CBD'], ['WALK IN', 'Always Welcome']],
-    services: { eyebrow: 'What We Do', title: 'Precision Services', subtitle: 'Every service performed with focus, craft, and care.', items: [['01', 'Haircuts', 'Classic cuts to contemporary styles — sharp, clean, tailored to you.'], ['02', 'Fades', 'Skin, mid, and high fades executed with precision and consistency.'], ['03', 'Beard Trims', 'Line-ups, shaping, and grooming for a crisp, defined finish.'], ['04', 'Styling', 'Wax, clay, pomade — product advice and finish styling included.']], action: 'Enquire' },
-    experience: { eyebrow: 'The Experience', lead: 'Walk into Atelier Barbers and you step into a CBD barber shop that takes its craft seriously. No rush, no shortcuts — just focused, expert service that sends you out looking sharp.', features: ['Precision cuts tailored to your face shape', 'Walk-in friendly — no booking required', 'Right in the heart of Melbourne CBD', 'Experienced barbers, consistent results'], open: 'Open Mon-Sat', welcome: 'Walk-ins always welcome' },
-    reviews: { eyebrow: 'What People Say', title: 'Trusted by Melbourne', google: 'Google Review' },
-    location: { eyebrow: 'Find Us', title: 'We’re in the CBD.', address: 'Address', phone: 'Phone', hours: 'Hours', directions: 'Get Directions', map: 'Open Atelier Barbers in Maps' },
-    footer: { subtitle: 'Barbers · Melbourne', copyright: 'All rights reserved.' },
+    metrics: [['LISBON', 'Portugal'], ['JOÃO XXI', 'Ave. 72B'], ['MON–FRI', '10am–8pm'], ['SUNDAY', 'Closed']],
+    services: { eyebrow: 'What We Do', title: 'Golden Hands Services', subtitle: 'Every service performed with focus, craft, and care.', items: [['01', 'Haircuts', 'Cut and optional wash.'], ['02', 'Fades', 'Haircuts with a choice of finishes.'], ['03', 'Beard', 'Beard shaping, trimming or shaving.'], ['04', 'Care', 'Hair hydration and complementary services.']], action: 'Enquire' },
+    experience: { eyebrow: 'The experience', lead: 'At Galeria Via Veneto, Golden Hands offers haircuts, beard grooming and men’s care in Lisbon.', features: ['Haircuts and beard grooming', 'Men’s hair coloring', 'Facial care', 'Online booking available'], open: 'Mon–Fri 10am–8pm', welcome: 'Saturday hours to be confirmed' },
+    reviews: { eyebrow: 'What People Say', title: 'Customer reviews', google: 'Google Review' },
+    location: { eyebrow: 'Find Us', title: 'In Lisbon.', address: 'Address', phone: 'Phone', hours: 'Hours', directions: 'Get Directions', map: 'Open Golden Hands in Maps' },
+    footer: { subtitle: 'Barbers · Lisbon', copyright: 'All rights reserved.' },
   },
   es: {
     nav: { home: 'Inicio', services: 'Servicios', about: 'Nosotros', contact: 'Contacto', call: 'Llamar ahora', primary: 'Navegación principal', open: 'Abrir menú', close: 'Cerrar menú' },
     hero: { eyebrow: 'Barbería premium · Melbourne', tagline: 'Cortes precisos. Líneas limpias. Entra y sal con tu mejor imagen — siempre.', directions: 'Cómo llegar', call: 'Llamar ahora', scroll: 'Desliza' },
-    metrics: [['4.5 ★', 'Valoración Google'], ['245+', 'Reseñas verificadas'], ['BARBER ST', 'Melbourne CBD'], ['SIN CITA', 'Siempre bienvenido']],
-    services: { eyebrow: 'Lo que hacemos', title: 'Servicios de precisión', subtitle: 'Cada servicio se realiza con enfoque, técnica y cuidado.', items: [['01', 'Cortes', 'Del clásico al contemporáneo — preciso, limpio y hecho para ti.'], ['02', 'Degradados', 'Skin, mid y high fades ejecutados con precisión y consistencia.'], ['03', 'Barba', 'Perfilado, forma y cuidado para un acabado limpio y definido.'], ['04', 'Styling', 'Cera, clay o pomada — asesoría de producto y acabado incluidos.']], action: 'Consultar' },
-    experience: { eyebrow: 'La experiencia', lead: 'Entrar en Atelier Barbers es entrar en una barbería del CBD que se toma el oficio en serio. Sin prisas ni atajos — solo atención experta y resultados consistentes.', features: ['Cortes precisos según la forma de tu rostro', 'Sin cita previa', 'En pleno corazón de Melbourne CBD', 'Barberos experimentados, resultados consistentes'], open: 'Abierto Lun–Sáb', welcome: 'Siempre aceptamos clientes sin cita' },
-    reviews: { eyebrow: 'Lo que dicen', title: 'La confianza de Melbourne', google: 'Reseña de Google' },
-    location: { eyebrow: 'Encuéntranos', title: 'Estamos en el CBD.', address: 'Dirección', phone: 'Teléfono', hours: 'Horario', directions: 'Cómo llegar', map: 'Abrir Atelier Barbers en Maps' },
-    footer: { subtitle: 'Barbers · Melbourne', copyright: 'Todos los derechos reservados.' },
+    metrics: [['LISBOA', 'Portugal'], ['JOÃO XXI', 'Av. 72B'], ['LUN–VIE', '10–20h'], ['DOMINGO', 'Cerrado']],
+    services: { eyebrow: 'Lo que hacemos', title: 'Servicios Golden Hands', subtitle: 'Cada servicio se realiza con enfoque, técnica y cuidado.', items: [['01', 'Cortes', 'Corte con lavado opcional.'], ['02', 'Degradados', 'Cortes con diferentes acabados.'], ['03', 'Barba', 'Perfilado, recorte o afeitado.'], ['04', 'Cuidados', 'Hidratación capilar y servicios complementarios.']], action: 'Consultar' },
+    experience: { eyebrow: 'La experiencia', lead: 'En la Galeria Via Veneto, Golden Hands ofrece cortes, barba y cuidados masculinos en Lisboa.', features: ['Cortes y barba', 'Coloración masculina', 'Cuidado facial', 'Reserva online disponible'], open: 'Lun–Vie 10–20h', welcome: 'Horario del sábado por confirmar' },
+    reviews: { eyebrow: 'Lo que dicen', title: 'Opiniones de clientes', google: 'Reseña de Google' },
+    location: { eyebrow: 'Encuéntranos', title: 'En Lisboa.', address: 'Dirección', phone: 'Teléfono', hours: 'Horario', directions: 'Cómo llegar', map: 'Abrir Golden Hands en Maps' },
+    footer: { subtitle: 'Barbers · Lisboa', copyright: 'Todos los derechos reservados.' },
   },
 };
 
 const serviceImages = ['/images/services/cortes.jpeg', '/images/services/degrades.jpeg', '/images/services/barba.jpeg', '/images/services/finalizacao.jpeg'];
 
 const reviews = [
-  { quote: 'Best barbershop in the area. Skilled team with great attention to detail and top-notch service. The prices are fair for the quality you get — I wouldn’t go anywhere else.', name: 'James R.' },
-  { quote: 'Walked in on a Saturday without a booking and they fit me right in. Best fade I’ve had in years — clean lines, great attention to detail. Will definitely be back every fortnight.', name: 'Marcus T.' },
-  { quote: 'Hands down the best barbershop in Melbourne. Showed up with no idea what I wanted and walked out looking sharper than ever. The team genuinely cares about their craft.', name: 'Daniel P.' },
+  { quote: 'Magnífico. Com certeza voltarei para o próximo corte.', name: 'Luís' },
+  { quote: 'Top top o melhor', name: 'Rafael' },
 ];
 
 function useReveal() {
@@ -92,7 +91,7 @@ function Header() {
   const t = copy[language].nav;
   return (
     <header className="atelier-header">
-      <a className="atelier-brand" href="/" aria-label="Atelier Barbers home"><span className="atelier-brand-main">ATELIER</span><span className="atelier-brand-sub">barbers</span></a>
+      <a className="atelier-brand" href="/" aria-label="Golden Hands, início"><img className="golden-hands-logo" src="/images/golden-hands-logo.jpeg" alt="Golden Hands Barbershop" /></a>
       <nav className="atelier-nav" aria-label={t.primary}><a href="/">{t.home}</a><a href="/services">{t.services}</a><a href="/about">{t.about}</a><a href="/contact">{t.contact}</a></nav>
       <div className="header-actions"><LanguageSwitcher /><a className="header-call" href={demoLocation.phone.href}><span>{t.call}</span><ArrowRight size={15} strokeWidth={1.8} /></a></div>
       <button className="menu-button" type="button" aria-label={open ? t.close : t.open} aria-expanded={open} onClick={() => setOpen((value) => !value)}>{open ? <X size={22} /> : <Menu size={22} />}</button>
@@ -107,7 +106,7 @@ function Eyebrow({ children, centered = false, revealDelay }: { children: React.
 
 function Metrics() {
   const { language } = useI18n();
-  return <section className="metrics-strip" aria-label="Atelier Barbers highlights"><div className="section-shell metrics-grid">{copy[language].metrics.map(([value, label]: string[], index: number) => <div className="metric-item" key={label} data-reveal="fade-up" data-reveal-delay={index}><strong>{value}</strong><span>{label}</span></div>)}</div></section>;
+  return <section className="metrics-strip" aria-label="Informações Golden Hands"><div className="section-shell metrics-grid">{copy[language].metrics.map(([value, label]: string[], index: number) => <div className="metric-item" key={label} data-reveal="fade-up" data-reveal-delay={index}><strong>{value}</strong><span>{label}</span></div>)}</div></section>;
 }
 
 function HeroMarquee() {
@@ -175,7 +174,7 @@ function Services() {
                 data-reveal-delay={index}
                 aria-current={isActive ? 'true' : undefined}
               >
-                <img src={serviceImages[index]} alt={`${title} at Atelier Barbers`} loading="lazy" />
+                <img src={serviceImages[index]} alt={`${title} na Golden Hands` loading="lazy" />
                 <span className="service-shade" aria-hidden="true" />
                 <span className="service-number">{number}</span>
                 <div className="service-copy">
@@ -218,13 +217,13 @@ function Services() {
 function Experience() {
   const { language } = useI18n();
   const t = copy[language].experience;
-  return <section className="atelier-section experience-section" id="about"><div className="section-shell experience-grid"><div className="experience-copy"><Eyebrow revealDelay={0}>{t.eyebrow}</Eyebrow><h2 data-reveal="fade-up" data-reveal-delay={1}>{language === 'en' ? <>Sharp. Clean.<br />Every Time.</> : language === 'es' ? <>Preciso. Limpio.<br />Siempre.</> : <>Preciso. Limpo.<br />Sempre.</>}</h2><p className="experience-lead" data-reveal="fade-up" data-reveal-delay={2}>{t.lead}</p><div className="feature-list">{t.features.map((feature: string, index: number) => <div className="feature-item" key={feature} data-reveal="fade-up" data-reveal-delay={index + 2}><span><Check size={14} strokeWidth={2} /></span><p>{feature}</p></div>)}</div><div className="experience-hours" data-reveal="fade-up" data-reveal-delay={5}><div><strong>{t.open}</strong><span>{t.welcome}</span></div></div></div><div className="experience-media" data-reveal="media" data-reveal-delay={1}><img src={image('PaN26fmUFDFXpMRknfRImO1iv0', 'scale-down-to=2048')} alt="Atelier Barbers shop detail" loading="lazy" /><span className="experience-frame" aria-hidden="true" /></div></div></section>;
+  return <section className="atelier-section experience-section" id="about"><div className="section-shell experience-grid"><div className="experience-copy"><Eyebrow revealDelay={0}>{t.eyebrow}</Eyebrow><h2 data-reveal="fade-up" data-reveal-delay={1}>{language === 'en' ? <>Sharp. Clean.<br />Every Time.</> : language === 'es' ? <>Preciso. Limpio.<br />Siempre.</> : <>Preciso. Limpo.<br />Sempre.</>}</h2><p className="experience-lead" data-reveal="fade-up" data-reveal-delay={2}>{t.lead}</p><div className="feature-list">{t.features.map((feature: string, index: number) => <div className="feature-item" key={feature} data-reveal="fade-up" data-reveal-delay={index + 2}><span><Check size={14} strokeWidth={2} /></span><p>{feature}</p></div>)}</div><div className="experience-hours" data-reveal="fade-up" data-reveal-delay={5}><div><strong>{t.open}</strong><span>{t.welcome}</span></div></div></div><div className="experience-media" data-reveal="media" data-reveal-delay={1}><img src={image('PaN26fmUFDFXpMRknfRImO1iv0', 'scale-down-to=2048')} alt="Detalhes de barbearia" loading="lazy" /><span className="experience-frame" aria-hidden="true" /></div></div></section>;
 }
 
 function Reviews() {
   const { language } = useI18n();
   const t = copy[language].reviews;
-  return <section className="atelier-section reviews-section"><div className="section-shell"><div className="section-heading centered"><Eyebrow centered revealDelay={0}>{t.eyebrow}</Eyebrow><h2 data-reveal="fade-up" data-reveal-delay={1}>{t.title}</h2></div><div className="reviews-grid">{reviews.map((review, index) => <article className="review-card" key={review.name} data-reveal="card" data-reveal-delay={index}><div className="review-stars">★★★★★</div><p>“{review.quote}”</p><div className="review-author"><strong>{review.name}</strong><span>{t.google}</span></div></article>)}</div></div></section>;
+  return <section className="atelier-section reviews-section"><div className="section-shell"><div className="section-heading centered"><Eyebrow centered revealDelay={0}>{t.eyebrow}</Eyebrow><h2 data-reveal="fade-up" data-reveal-delay={1}>{t.title}</h2></div><div className="reviews-grid">{reviews.map((review, index) => <article className="review-card" key={review.name} data-reveal="card" data-reveal-delay={index}><div className="review-stars">★★★★★</div><p>“{review.quote}”</p><div className="review-author"><strong>{review.name}</strong><span>{'Avaliação fornecida'</span></div></article>)}</div></div></section>;
 }
 
 function Location() {
@@ -236,7 +235,7 @@ function Location() {
 function Footer() {
   const { language } = useI18n();
   const t = copy[language];
-  return <footer className="atelier-footer"><div className="section-shell footer-top" data-reveal="fade-up" data-reveal-delay={0}><div><strong className="footer-wordmark">ATELIER</strong><span>{t.footer.subtitle}</span></div><a href={demoLocation.phone.href}><Phone size={14} /> {demoLocation.phone.display}</a></div><div className="section-shell footer-bottom" data-reveal="fade-up" data-reveal-delay={1}><span>© 2026 Atelier Barbers. {t.footer.copyright}</span><div><a href="/">{t.nav.home}</a><a href="/services">{t.nav.services}</a><a href="/about">{t.nav.about}</a><a href="/contact">{t.nav.contact}</a></div></div></footer>;
+  return <footer className="atelier-footer"><div className="section-shell footer-top" data-reveal="fade-up" data-reveal-delay={0}><div><strong className="footer-wordmark"><img className="golden-hands-logo" src="/images/golden-hands-logo.jpeg" alt="Golden Hands Barbershop" /></strong><span>{t.footer.subtitle}</span></div><a href={demoLocation.phone.href}><Phone size={14} /> {demoLocation.phone.display}</a></div><div className="section-shell footer-bottom" data-reveal="fade-up" data-reveal-delay={1}><span>© 2026 Golden Hands. {t.footer.copyright}</span><div><a href="/">{t.nav.home}</a><a href="/services">{t.nav.services}</a><a href="/about">{t.nav.about}</a><a href="/contact">{t.nav.contact}</a></div></div></footer>;
 }
 
 export function LandingPage() {

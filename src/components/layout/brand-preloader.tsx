@@ -41,7 +41,7 @@ export function BrandPreloader() {
       data-state={phase}
       role="status"
       aria-live="polite"
-      aria-label="Atelier Barbers"
+      aria-label="Golden Hands"
     >
       <span className="brand-preloader__veil" aria-hidden="true" />
 
@@ -60,8 +60,7 @@ export function BrandPreloader() {
         </svg>
 
         <div className="brand-preloader__wordmark" aria-hidden="true">
-          <span className="brand-preloader__name">ATELIER</span>
-          <span className="brand-preloader__sub">barbers</span>
+          <img className="brand-preloader__logo" src="/images/golden-hands-logo.jpeg" alt="Golden Hands Barbershop" />
         </div>
       </div>
     </div>

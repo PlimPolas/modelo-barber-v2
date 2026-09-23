@@ -21,7 +21,7 @@ function NotFoundComponent() {
   return (
     <div className="error-screen">
       <div className="error-card">
-        <p className="eyebrow">Atelier Barbers</p>
+        <p className="eyebrow">Golden Hands</p>
         <h1>404</h1>
         <p>The page you are looking for does not exist.</p>
         <Link to="/" className="gold-button">Back home</Link>
@@ -41,7 +41,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   return (
     <div className="error-screen">
       <div className="error-card">
-        <p className="eyebrow">Atelier Barbers</p>
+        <p className="eyebrow">Golden Hands</p>
         <h1>Something went wrong.</h1>
         <button
           className="gold-button"
@@ -62,17 +62,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Atelier Barbers — Premium Barbershop" },
+      { title: "Golden Hands — Premium Barbershop" },
       {
         name: "description",
         content:
-          "Walk in. Look great. Precision cuts, classic shaves and grooming for the modern gentleman.",
+          "Cortes, barba e cuidados masculinos em Lisboa. Precision cuts, classic shaves and grooming for the modern gentleman.",
       },
-      { name: "author", content: "Atelier Barbers" },
-      { property: "og:title", content: "Atelier Barbers — Premium Barbershop" },
+      { name: "author", content: "Golden Hands" },
+      { property: "og:title", content: "Golden Hands — Premium Barbershop" },
       {
         property: "og:description",
-        content: "Precision cuts, classic shaves and grooming in Melbourne CBD.",
+        content: "Precision cuts, classic shaves and grooming in Lisboa.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

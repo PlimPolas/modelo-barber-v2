@@ -5,10 +5,10 @@ import { AboutPage } from "@/components/landing/inner-pages";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About — Atelier Barbers" },
+      { title: "About — Golden Hands" },
       {
         name: "description",
-        content: "Our craft, our shop, and the philosophy behind Atelier Barbers in Melbourne CBD.",
+        content: "Our craft, our shop, and the philosophy behind Golden Hands in Lisboa.",
       },
     ],
   }),

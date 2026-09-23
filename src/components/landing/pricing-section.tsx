@@ -7,28 +7,28 @@ const pricingCopy: Record<LanguageCode, { eyebrow: string; title: string; descri
   pt: {
     eyebrow: 'O que oferecemos',
     title: 'Nossos preços',
-    description: 'Uma experiência de grooming premium com serviços pensados para você. Preços claros e alinhados ao valor entregue.',
+    description: 'Serviços e preços da Golden Hands.',
     columns: [
-      [['Corte personalizado', '$25'], ['Degradê moderno', '$30'], ['Barba e desenho', '$20'], ['Barbear com toalha quente', '$35'], ['Grooming executivo', '$45'], ['Cor e mechas', '$50'], ['Tratamento capilar', '$25']],
-      [['Facial refrescante', '$40'], ['Realce de cor', '$35'], ['Lavagem e escova', '$25'], ['Corte infantil (até 12)', '$20'], ['Especial sênior', '$15'], ['Raspagem completa', '$20'], ['Consultoria personalizada', 'Grátis']],
+      [['Corte & Style', '17 €'], ['Corte & Style + Barba', '22 €'], ['Corte & Style + Sobrancelha c/navalha', '20 €'], ['Corte + Barba + Sobrancelha', '25 €'], ['Corte + Barba com Toalha Quente', '27 €'], ['Patilha + Barba', '12 €']],
+      [['Barba', '8 €'], ['Sobrancelha c/navalha', '6 €'], ['Patilha', '8 €'], ['Hidratação capilar', '8 €'], ['Barba com Toalha Quente', '13 €']],
     ],
   },
   en: {
     eyebrow: 'What We Offer',
     title: 'Our Prices',
-    description: 'Experience luxury grooming with our diverse services designed just for you. Discover clear pricing aligned with the value you get.',
+    description: 'Golden Hands services and prices.',
     columns: [
-      [['Tailored Haircuts', '$25'], ['Modern Fade', '$30'], ['Beard Trim and Sculpt', '$20'], ['Hot Towel Razor Shave', '$35'], ['Executive Grooming', '$45'], ['Color and Highlights', '$50'], ['Hair Treatment', '$25']],
-      [['Refreshing Facial', '$40'], ['Hair Color Enhancement', '$35'], ['Shampoo and Blowout', '$25'], ["Kids' Cut (Under 12)", '$20'], ["Senior's Special", '$15'], ['Head Shave', '$20'], ['Custom Consultation', 'Free']],
+      [['Corte & Style', '17 €'], ['Corte & Style + Barba', '22 €'], ['Corte & Style + Sobrancelha c/navalha', '20 €'], ['Corte + Barba + Sobrancelha', '25 €'], ['Corte + Barba com Toalha Quente', '27 €'], ['Patilha + Barba', '12 €']],
+      [['Barba', '8 €'], ['Sobrancelha c/navalha', '6 €'], ['Patilha', '8 €'], ['Hidratação capilar', '8 €'], ['Barba com Toalha Quente', '13 €']],
     ],
   },
   es: {
     eyebrow: 'Lo que ofrecemos',
     title: 'Nuestros precios',
-    description: 'Una experiencia de grooming premium con servicios pensados para ti. Precios claros y alineados con el valor que recibes.',
+    description: 'Servicios y precios de Golden Hands.',
     columns: [
-      [['Corte personalizado', '$25'], ['Degradado moderno', '$30'], ['Barba y diseño', '$20'], ['Afeitado con toalla caliente', '$35'], ['Grooming ejecutivo', '$45'], ['Color y mechas', '$50'], ['Tratamiento capilar', '$25']],
-      [['Facial refrescante', '$40'], ['Realce de color', '$35'], ['Lavado y secado', '$25'], ['Corte infantil (hasta 12)', '$20'], ['Especial senior', '$15'], ['Afeitado de cabeza', '$20'], ['Consulta personalizada', 'Gratis']],
+      [['Corte & Style', '17 €'], ['Corte & Style + Barba', '22 €'], ['Corte & Style + Sobrancelha c/navalha', '20 €'], ['Corte + Barba + Sobrancelha', '25 €'], ['Corte + Barba com Toalha Quente', '27 €'], ['Patilha + Barba', '12 €']],
+      [['Barba', '8 €'], ['Sobrancelha c/navalha', '6 €'], ['Patilha', '8 €'], ['Hidratação capilar', '8 €'], ['Barba com Toalha Quente', '13 €']],
     ],
   },
 };
