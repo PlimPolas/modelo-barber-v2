@@ -1526,7 +1526,7 @@ img {
 .services-grid {
   display: flex;
   align-items: stretch;
-  gap: 14px;
+  gap: 12px;
 }
 
 .service-card {
@@ -1534,47 +1534,49 @@ img {
   min-width: 0;
   min-height: 460px;
   aspect-ratio: .72;
-  transform: scale(.992);
+  overflow: hidden;
   transform-origin: center;
   transition:
-    flex-grow 450ms cubic-bezier(.22,1,.36,1),
-    transform 450ms cubic-bezier(.22,1,.36,1),
-    border-color 450ms ease,
-    opacity 450ms ease;
-  will-change: flex-grow, transform;
+    flex-grow 620ms cubic-bezier(.22,1,.36,1),
+    flex-basis 620ms cubic-bezier(.22,1,.36,1),
+    border-color 560ms ease,
+    opacity 560ms ease;
+  will-change: flex-grow;
 }
 
 .service-card.is-active {
-  flex-grow: 1.16;
+  flex-grow: 2.15;
   z-index: 2;
-  transform: scale(1.006);
-  border-color: rgba(201,168,76,.5);
+  border-color: rgba(201,168,76,.56);
+  opacity: 1;
 }
 
 .service-card.is-muted {
-  flex-grow: .95;
-  opacity: .88;
+  flex-grow: .62;
+  opacity: .72;
 }
 
 .service-card img {
   object-fit: cover;
-  transform: scale(1.005);
+  transform: scale(1);
   transition:
-    transform 450ms cubic-bezier(.22,1,.36,1),
-    filter 450ms ease;
+    transform 620ms cubic-bezier(.22,1,.36,1),
+    filter 560ms ease,
+    object-position 620ms cubic-bezier(.22,1,.36,1);
 }
 
 .service-card.is-active img {
   transform: scale(1);
-  filter: saturate(.86) contrast(1.03) brightness(.8);
+  filter: saturate(.9) contrast(1.03) brightness(.82);
 }
 
 .service-card.is-muted img {
-  filter: saturate(.66) contrast(1.02) brightness(.67);
+  transform: scale(1.018);
+  filter: saturate(.58) contrast(1.02) brightness(.62);
 }
 
 .service-card:nth-child(1) img {
-  object-position: 43% center;
+  object-position: 40% center;
 }
 
 .service-card:nth-child(2) img {
@@ -1586,13 +1588,13 @@ img {
 }
 
 .service-card:nth-child(4) img {
-  object-position: 46% center;
+  object-position: 47% center;
 }
 
 @media (max-width: 1040px) and (min-width: 810px) {
   .services-grid {
     display: flex;
-    gap: 9px;
+    gap: 8px;
   }
 
   .service-card {
@@ -1602,18 +1604,18 @@ img {
   }
 
   .service-card.is-active {
-    flex-grow: 1.14;
+    flex-grow: 2.05;
   }
 
   .service-card.is-muted {
-    flex-grow: .955;
+    flex-grow: .65;
   }
 }
 
 @media (max-width: 809px) {
   .services-grid {
     display: flex;
-    gap: 4px;
+    gap: 3px;
   }
 
   .service-card {
@@ -1621,29 +1623,32 @@ img {
     min-width: 0;
     height: clamp(350px, 48svh, 420px);
     aspect-ratio: auto;
-    transform: scale(.99);
   }
 
   .service-card.is-active {
-    flex-grow: 1.18;
-    transform: scale(1.004);
+    flex-grow: 2.35;
+    opacity: 1;
   }
 
   .service-card.is-muted {
-    flex-grow: .94;
-    opacity: .86;
+    flex-grow: .55;
+    opacity: .68;
   }
 
   .service-card img {
-    transform: scale(1.002);
+    transform: scale(1);
   }
 
   .service-card.is-active img {
     transform: scale(1);
   }
 
+  .service-card.is-muted img {
+    transform: scale(1.025);
+  }
+
   .service-card:nth-child(1) img {
-    object-position: 40% center;
+    object-position: 38% center;
   }
 
   .service-card:nth-child(2) img {
@@ -1655,7 +1660,7 @@ img {
   }
 
   .service-card:nth-child(4) img {
-    object-position: 45% center;
+    object-position: 46% center;
   }
 
   .service-number {
@@ -1676,11 +1681,11 @@ img {
   }
 
   .service-card.is-active {
-    flex-grow: 1.16;
+    flex-grow: 2.25;
   }
 
   .service-card.is-muted {
-    flex-grow: .947;
+    flex-grow: .58;
   }
 }
 
