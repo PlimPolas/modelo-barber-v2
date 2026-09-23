@@ -22,7 +22,7 @@ jobs:
           set -euo pipefail
           mkdir -p public/images/services
           for name in cortes degrades barba finalizacao; do
-            cat .service-image-staging/${name}.part* | base64 --decode > public/images/services/${name}.webp
+            cat .service-image-staging/${name}.chunk* | base64 --decode > public/images/services/${name}.webp
             test -s public/images/services/${name}.webp
             file public/images/services/${name}.webp | grep -qi "Web/P"
           done
