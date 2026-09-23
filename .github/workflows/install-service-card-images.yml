@@ -1,0 +1,42 @@
+name: Install service card images
+
+on:
+  push:
+    paths:
+      - ".service-image-staging/READY"
+
+permissions:
+  contents: write
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Rebuild image assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p public/images/services
+          for name in cortes degrades barba finalizacao; do
+            cat .service-image-staging/${name}.part* | base64 --decode > public/images/services/${name}.webp
+            test -s public/images/services/${name}.webp
+            file public/images/services/${name}.webp | grep -qi "Web/P"
+          done
+
+      - name: Commit image assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf .service-image-staging
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/images/services .service-image-staging
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "Install verified service card images"
+          git push
