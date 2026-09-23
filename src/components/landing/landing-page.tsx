@@ -134,7 +134,7 @@ function Services() {
   useEffect(() => {
     const timer = window.setInterval(() => {
       setActiveService((current) => (current + 1) % t.items.length);
-    }, 500);
+    }, 850);
     return () => window.clearInterval(timer);
   }, [t.items.length]);
 
