@@ -119,7 +119,7 @@ export function GallerySection() {
   };
 
   return (
-    <section className="atelier-section gallery-section" aria-label={t.aria}>
+    <section className="atelier-section gallery-section" id="galeria-cortes" aria-label={t.aria}>
       <div className="section-shell gallery-shell">
         <header className="gallery-heading">
           <div className="atelier-eyebrow" data-reveal="fade-up" data-reveal-delay={0}>
