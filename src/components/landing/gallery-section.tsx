@@ -178,7 +178,7 @@ export function GallerySection() {
               {activeThumbIndexes.map((index) => {
                 const item = activeCategory.images[index];
                 if (!item) return null;
-                const isActive = index === activeImageIndex;
+                const isActive = index === activeThumbIndexes[0];
                 return (
                   <button
                     key={`${activeCategory.id}-thumb-${index}`}
