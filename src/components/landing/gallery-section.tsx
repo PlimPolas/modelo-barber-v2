@@ -42,9 +42,9 @@ function getThumbnailIndexes(category: GalleryCategory, activeIndex: number) {
   if (category.images.length <= 3) return category.images.map((_, index) => index);
 
   return [
-    activeIndex,
     wrap(activeIndex + 1, category.images.length),
     wrap(activeIndex + 2, category.images.length),
+    wrap(activeIndex + 3, category.images.length),
   ];
 }
 
