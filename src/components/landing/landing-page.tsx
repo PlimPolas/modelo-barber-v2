@@ -129,7 +129,16 @@ function HeroMarquee() {
 function Services() {
   const { language } = useI18n();
   const t = copy[language].services;
-  return <section className="atelier-section services-section" id="services"><div className="section-shell"><div className="section-heading centered"><Eyebrow centered revealDelay={0}>{t.eyebrow}</Eyebrow><h2 data-reveal="fade-up" data-reveal-delay={1}>{t.title}</h2><p data-reveal="fade-up" data-reveal-delay={2}>{t.subtitle}</p></div><div className="services-grid">{t.items.map(([number, title, body]: string[], index: number) => <a className="service-card" href="/contact" key={number} data-reveal="card" data-reveal-delay={index}><img src={serviceImages[index]} alt={`${title} at Atelier Barbers`} loading="lazy" /><span className="service-shade" aria-hidden="true" /><span className="service-number">{number}</span><div className="service-copy"><h3>{title}</h3><p>{body}</p><span className="service-link">{t.action} <ArrowRight size={14} /></span></div></a>)}</div></div></section>;
+  const [activeService, setActiveService] = useState(0);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveService((current) => (current + 1) % t.items.length);
+    }, 500);
+    return () => window.clearInterval(timer);
+  }, [t.items.length]);
+
+  return <section className="atelier-section services-section" id="services"><div className="section-shell"><div className="section-heading centered"><Eyebrow centered revealDelay={0}>{t.eyebrow}</Eyebrow><h2 data-reveal="fade-up" data-reveal-delay={1}>{t.title}</h2><p data-reveal="fade-up" data-reveal-delay={2}>{t.subtitle}</p></div><div className="services-grid">{t.items.map(([number, title, body]: string[], index: number) => <a className={`service-card ${activeService === index ? 'is-active' : 'is-muted'}`} href="/contact" key={number} data-reveal="card" data-reveal-delay={index} aria-current={activeService === index ? 'true' : undefined}><img src={serviceImages[index]} alt={`${title} at Atelier Barbers`} loading="lazy" /><span className="service-shade" aria-hidden="true" /><span className="service-number">{number}</span><div className="service-copy"><h3>{title}</h3><p>{body}</p><span className="service-link">{t.action} <ArrowRight size={14} /></span></div></a>)}</div></div></section>;
 }
 
 function Experience() {
